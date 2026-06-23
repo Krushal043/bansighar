@@ -412,6 +412,119 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Catalogues Teaser Section */}
+      <section className="py-24 bg-luxury-charcoal border-t border-white/5 relative z-10 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            {/* Text Content */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+                Digital Showroom
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+                Download Our Design & Material Catalogues
+              </h2>
+              <p className="text-luxury-muted leading-relaxed">
+                Take the first step in planning your interior project. Download our curated catalogues to explore premium Indian Teak configurations, luxury sunmica laminates, PVC modular kitchen templates, and bespoke wardrobe hardware.
+              </p>
+              <p className="text-luxury-muted leading-relaxed">
+                Our catalogues provide complete technical specifications, dimensions, finish details, and layout recommendations from our master designers.
+              </p>
+              <div className="flex flex-wrap gap-4 mt-2">
+                <Link
+                  href="/catalogues"
+                  className="gold-gradient-bg text-luxury-black font-semibold text-sm tracking-wide px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300"
+                >
+                  Access All Downloads
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick Preview Cards */}
+            <div className="lg:col-span-5 flex flex-col gap-4">
+              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
+                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      Wooden Furniture & Sunmica
+                    </h4>
+                    <p className="text-xs text-luxury-muted mt-0.5">Bespoke beds, tables & laminates (PDF, 2.1 MB)</p>
+                  </div>
+                </div>
+                <a
+                  href="/catalogues/wooden_furniture_sunmica.pdf"
+                  download
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
+                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      PVC Furniture & Sunmica
+                    </h4>
+                    <p className="text-xs text-luxury-muted mt-0.5">PVC cabinets, kitchens & trims (PDF, 1.8 MB)</p>
+                  </div>
+                </div>
+                <a
+                  href="/catalogues/pvc_furniture_sunmica.pdf"
+                  download
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
+                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      Aluminium Themes & Sections
+                    </h4>
+                    <p className="text-xs text-luxury-muted mt-0.5">Partition framing & architectural (PDF, 2.5 MB)</p>
+                  </div>
+                </div>
+                <a
+                  href="/catalogues/aluminium_sections.pdf"
+                  download
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 6. Testimonials Section */}
       <section className="py-24 bg-[#050505] relative z-10 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
