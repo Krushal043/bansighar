@@ -32,6 +32,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${playfair.variable} ${jakarta.variable} h-full antialiased scroll-smooth`}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col bg-luxury-black text-luxury-text font-sans selection:bg-luxury-gold selection:text-luxury-black">
         <Navbar />
