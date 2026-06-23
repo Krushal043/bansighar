@@ -7,8 +7,8 @@ import {
 } from "react-icons/fa";
 
 export const metadata = {
-  title: "Our Services | Bansighar Enterprise",
-  description: "Explore our premium woodworking services, including custom furniture commissions, space planning, restoration, and white-glove installation.",
+  title: "Our Services | Bansidhar",
+  description: "Explore our premium woodworking and architectural contracting services, including custom furniture commissions and turnkey solutions.",
 };
 
 export default function Services() {

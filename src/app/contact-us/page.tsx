@@ -106,13 +106,13 @@ function ContactFormContent() {
       <div className="lg:col-span-5 flex flex-col gap-8 animate-fade-in-left">
         <div>
           <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-            Bansighar Enterprise
+            Bansidhar Aluminium & Furniture
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mt-2 mb-4">
-            Connect With Our Designers
+            Connect With Our team
           </h2>
           <p className="text-luxury-muted text-sm leading-relaxed">
-            Have a custom configuration print, specific timber questions, or want to schedule an in-person workshop visit? Get in touch today.
+            Have custom requirements, timber or metal work questions, or want to schedule an in-person visit to our Surat showroom & workshop? Get in touch today.
           </p>
         </div>
 
@@ -125,7 +125,7 @@ function ContactFormContent() {
               <h4 className="text-sm font-bold text-white flex justify-between items-center">
                 Showroom & Workshop
                 <a
-                  href="https://maps.google.com/?q=Bansighar+Enterprise+SG+Highway+Ahmedabad"
+                  href="https://maps.google.com/?q=Swarg+Residency+Kargil+Chowk+Punagam+Road+Surat"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[10px] text-luxury-gold hover:text-luxury-gold-light font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
@@ -135,8 +135,9 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
-                102, Royal Crafts Building, Near Furniture Plaza, <br />
-                S.G. Highway, Gujarat, India - 380054
+                Swarg Residency, Opposite Raj Palace,<br />
+                Beside Arjun Nagar, Kargil Chowk - Punagam Road,<br />
+                Surat, Gujarat, India - 395010
               </p>
             </div>
           </div>
@@ -148,7 +149,7 @@ function ContactFormContent() {
               <h4 className="text-sm font-bold text-white flex justify-between items-center">
                 WhatsApp Chat Desk
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Bansighar%20Enterprise,%20I%20am%20interested%20in%20inquiring%20about%20your%20bespoke%20furniture."
+                  href="https://wa.me/918866682122?text=Hi%20Bansidhar%20Aluminium%20%26%20Furniture,%20I%20am%20interested%20in%20inquiring%20about%20your%20services."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
@@ -158,8 +159,8 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
-                Connect directly on WhatsApp for live log previews, wood catalogue selection, and quick quotes. <br />
-                WhatsApp: +91 98765 43210
+                Connect directly on WhatsApp with Jitendrabhai for instant catalog previews and custom estimates.<br />
+                WhatsApp: +91 88666 82122 / 88666 81665
               </p>
             </div>
           </div>
@@ -169,9 +170,9 @@ function ContactFormContent() {
             <Phone className="w-5 h-5 text-luxury-gold shrink-0 mt-0.5" />
             <div className="w-full">
               <h4 className="text-sm font-bold text-white flex justify-between items-center">
-                Telephone Channels
+                Direct Channels
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918866682122"
                   className="text-[10px] text-luxury-gold hover:text-luxury-gold-light font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
                 >
                   Call Desk
@@ -179,8 +180,8 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
-                General Queries: +91 98765 43210 <br />
-                Design Studio: +91 98765 43211
+                Jitendrabhai: +91 88666 82122<br />
+                Office Inquiries: +91 88666 81665
               </p>
             </div>
           </div>
@@ -192,7 +193,7 @@ function ContactFormContent() {
               <h4 className="text-sm font-bold text-white flex justify-between items-center">
                 Email Address
                 <a
-                  href="mailto:info@bansighar.com"
+                  href="mailto:info@bansidhar.com"
                   className="text-[10px] text-luxury-gold hover:text-luxury-gold-light font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
                 >
                   Email Now
@@ -200,8 +201,8 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
-                Inquiries: info@bansighar.com <br />
-                Bespoke Design Desk: bespoke@bansighar.com
+                General: info@bansidhar.com<br />
+                Design Studio: bespoke@bansidhar.com
               </p>
             </div>
           </div>
@@ -215,10 +216,10 @@ function ContactFormContent() {
               <div className="w-3.5 h-3.5 rounded-full bg-luxury-gold" />
             </div>
             <span className="text-[11px] font-bold text-white uppercase tracking-wider">
-              Gujarat Experience Center
+              Surat Experience Center
             </span>
             <span className="text-[10px] text-luxury-muted">
-              Live Woodwarehouse & Studio Workshop
+              Live Showroom & Work Studio
             </span>
           </div>
         </div>

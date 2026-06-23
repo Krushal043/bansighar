@@ -46,7 +46,7 @@ export default function Navbar() {
               <Sofa className="w-5 h-5 text-luxury-gold group-hover:scale-110 transition-transform duration-300" />
             </div>
             <span className="font-display font-bold tracking-wider text-xl sm:text-2xl text-luxury-text group-hover:text-luxury-gold transition-colors duration-300">
-              Bansighar<span className="text-luxury-gold">.</span>
+              Bansidhar<span className="text-luxury-gold">.</span>
             </span>
           </Link>
 

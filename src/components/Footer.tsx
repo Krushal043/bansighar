@@ -15,11 +15,11 @@ export default function Footer() {
                 <Sofa className="w-5 h-5 text-luxury-gold" />
               </div>
               <span className="font-display font-bold tracking-wider text-xl text-luxury-text">
-                Bansighar<span className="text-luxury-gold">.</span>
+                Bansidhar<span className="text-luxury-gold">.</span>
               </span>
             </Link>
             <p className="leading-relaxed text-luxury-muted max-w-xs">
-              Bansighar Enterprise specializes in creating handcrafted, timeless wooden furniture designed to elevate modern living spaces.
+              Bansidhar Aluminium & Furniture specializes in creating premium aluminum themes, partitions, and handcrafted furniture to elevate modern spaces.
             </p>
             <div className="flex items-center gap-4 mt-2">
               <a
@@ -86,19 +86,19 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-luxury-gold shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  102, Royal Crafts Building, Furniture Plaza, Gujarat, India
+                  Swarg Residency, Opp. Raj Palace, Beside Arjun Nagar, Kargil Chowk, Punagam Road, Surat, Gujarat, India
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-luxury-gold shrink-0" />
                 <span className="hover:text-luxury-gold transition-colors">
-                  +91 98765 43210
+                  +91 88666 82122 / 81665
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-luxury-gold shrink-0" />
                 <span className="hover:text-luxury-gold transition-colors">
-                  info@bansighar.com
+                  info@bansidhar.com
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -147,7 +147,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs">
-            © {new Date().getFullYear()} Bansighar Enterprise. All Rights Reserved.
+            © {new Date().getFullYear()} Bansidhar Aluminium & Furniture. All Rights Reserved.
           </p>
           <div className="flex items-center gap-6 text-xs">
             <a href="#" className="hover:text-luxury-gold transition-colors">
