@@ -4,6 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Star, ChevronLeft, ChevronRight, Award, Compass, Heart, ShieldCheck } from "lucide-react";
 import { useState } from "react";
+import { 
+  FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
+  FaCouch, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
+  FaBuilding, FaHammer 
+} from "react-icons/fa";
 
 export default function Home() {
   const categories = [
@@ -270,6 +275,70 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Turnkey Contracting Services Overview */}
+      <section className="py-24 relative z-10 border-t border-white/5 bg-[#08080a]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+                Turnkey Solutions
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-2">
+                Architectural & Contracting Services
+              </h2>
+              <p className="text-luxury-muted text-xs sm:text-sm mt-3 max-w-xl leading-relaxed">
+                Beyond custom woodworking, we design and execute high-end architectural works. From stone laying and designer ceilings to electrical, plumbing, and glass systems.
+              </p>
+            </div>
+            <Link
+              href="/services"
+              className="text-xs font-semibold uppercase tracking-wider text-luxury-gold hover:text-luxury-gold-light flex items-center gap-1.5 transition-colors group shrink-0"
+            >
+              Explore all contracting services
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[
+              { name: "Stone Work", icon: <FaGem className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Ceiling & 2x2 Folding Ceiling", icon: <FaBorderAll className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Electric Work", icon: <FaBolt className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Plumber Work", icon: <FaFaucet className="w-4 h-4 text-luxury-gold" /> },
+              { name: "AC Work", icon: <FaWind className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Core Cutting", icon: <FaTools className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Furniture PVC & Wooden", icon: <FaCouch className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Color Work", icon: <FaPaintRoller className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Aluminium Window", icon: <FaWindowMaximize className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Office Partition", icon: <FaColumns className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Shower Glass", icon: <FaShower className="w-4 h-4 text-luxury-gold" /> },
+              { name: "All Glass Work", icon: <FaGem className="w-4 h-4 text-luxury-gold" /> },
+              { name: "ACP Elevation", icon: <FaBuilding className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Aluminium Themes", icon: <FaHammer className="w-4 h-4 text-luxury-gold" /> },
+            ].map((svc, idx) => (
+              <Link
+                key={idx}
+                href={`/services`}
+                className="p-5 rounded-xl bg-luxury-charcoal/40 border border-white/5 hover:border-luxury-gold/30 hover:bg-luxury-charcoal hover:-translate-y-1 transition-all duration-300 group flex items-center gap-4"
+              >
+                <div className="w-9 h-9 rounded-lg bg-luxury-gold/5 flex items-center justify-center shrink-0 group-hover:bg-luxury-gold/15 transition-all duration-300">
+                  {svc.icon}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs sm:text-sm font-bold text-white group-hover:text-luxury-gold transition-colors">
+                    {svc.name}
+                  </span>
+                  <span className="text-[10px] text-luxury-gold/70 group-hover:text-luxury-gold transition-colors flex items-center gap-0.5 mt-0.5 opacity-0 group-hover:opacity-100 duration-300">
+                    Learn more
+                    <ArrowRight className="w-2.5 h-2.5" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

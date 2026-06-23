@@ -2,9 +2,9 @@ import { Compass, Hammer, Paintbrush, Truck, ArrowRight, CheckCircle2 } from "lu
 import Link from "next/link";
 import { 
   FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
-  FaSofa, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
+  FaCouch, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
   FaBuilding, FaHammer 
-} from "react-icons/fa6";
+} from "react-icons/fa";
 
 export const metadata = {
   title: "Our Services | Bansighar Enterprise",
@@ -106,7 +106,7 @@ export default function Services() {
     {
       title: "PVC & Wooden Furniture",
       desc: "Custom water-resistant PVC kitchen and vanity carcasses paired with luxury wooden shutters and premium hardware.",
-      icon: <FaSofa className="w-5 h-5 text-luxury-gold" />,
+      icon: <FaCouch className="w-5 h-5 text-luxury-gold" />,
     },
     {
       title: "Color Work",

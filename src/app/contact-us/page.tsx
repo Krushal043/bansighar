@@ -22,13 +22,44 @@ function ContactFormContent() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [dynamicOptions, setDynamicOptions] = useState<string[]>([]);
+
+  const standardOptions = [
+    "Bespoke Commissions",
+    "Space Layout Consultations",
+    "Teak & Walnut Restoration",
+    "White-Glove Delivery",
+    "Stone Work",
+    "Ceiling & 2x2 Folding Ceiling",
+    "Electric Work",
+    "Plumber Work",
+    "AC Work",
+    "Core Cutting",
+    "PVC & Wooden Furniture",
+    "Color Work",
+    "Aluminium Window",
+    "Office Partition",
+    "Shower Glass",
+    "All Glass Work",
+    "ACP Elevation",
+    "Aluminium Themes",
+  ];
 
   useEffect(() => {
     let subjectText = "";
     if (initialInquiry) {
-      subjectText = `Inquiry about: ${initialInquiry}`;
+      subjectText = `Inquiry: ${initialInquiry}`;
+      setDynamicOptions([subjectText]);
     } else if (initialService) {
-      subjectText = `Service Inquiry: ${initialService}`;
+      const matched = standardOptions.find(
+        (opt) => opt.toLowerCase() === initialService.toLowerCase()
+      );
+      if (matched) {
+        subjectText = matched;
+      } else {
+        subjectText = `Service: ${initialService}`;
+        setDynamicOptions([subjectText]);
+      }
     }
     setFormData((prev) => ({
       ...prev,
@@ -251,15 +282,53 @@ function ContactFormContent() {
               <label htmlFor="subject" className="text-xs font-semibold text-luxury-muted uppercase tracking-wider">
                 Inquiry Topic
               </label>
-              <input
-                type="text"
+              <select
                 id="subject"
                 name="subject"
+                required
                 value={formData.subject}
                 onChange={handleChange}
-                placeholder="e.g. Bespoke Dining Table Design"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-xs text-luxury-text focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold transition-all"
-              />
+                className="w-full bg-[#121212] border border-white/10 rounded-lg px-4 py-3 text-xs text-luxury-text focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold transition-all"
+              >
+                <option value="" disabled className="text-luxury-muted">Select an Option...</option>
+                {/* Dynamic Options */}
+                {dynamicOptions.map((opt) => (
+                  <option key={opt} value={opt} className="bg-luxury-charcoal text-white font-semibold">
+                    {opt}
+                  </option>
+                ))}
+                
+                <option disabled className="text-luxury-gold text-xs font-semibold bg-luxury-black/90">
+                  --- FURNITURE COLLECTIONS ---
+                </option>
+                <option value="Bespoke Commissions" className="bg-luxury-charcoal text-white">Bespoke Commissions (Solid Wood)</option>
+                <option value="Space Layout Consultations" className="bg-luxury-charcoal text-white">Space Layout Consultations</option>
+                <option value="Teak & Walnut Restoration" className="bg-luxury-charcoal text-white">Teak & Walnut Restoration</option>
+                <option value="White-Glove Delivery" className="bg-luxury-charcoal text-white">White-Glove Delivery</option>
+                
+                <option disabled className="text-luxury-gold text-xs font-semibold bg-luxury-black/90">
+                  --- TURNKEY CONTRACTING SERVICES ---
+                </option>
+                <option value="Stone Work" className="bg-luxury-charcoal text-white">Stone Work</option>
+                <option value="Ceiling & 2x2 Folding Ceiling" className="bg-luxury-charcoal text-white">Ceiling & 2x2 Folding Ceiling</option>
+                <option value="Electric Work" className="bg-luxury-charcoal text-white">Electric Work</option>
+                <option value="Plumber Work" className="bg-luxury-charcoal text-white">Plumber Work</option>
+                <option value="AC Work" className="bg-luxury-charcoal text-white">AC Work</option>
+                <option value="Core Cutting" className="bg-luxury-charcoal text-white">Core Cutting</option>
+                <option value="PVC & Wooden Furniture" className="bg-luxury-charcoal text-white">PVC & Wooden Furniture</option>
+                <option value="Color Work" className="bg-luxury-charcoal text-white">Color Work</option>
+                <option value="Aluminium Window" className="bg-luxury-charcoal text-white">Aluminium Window</option>
+                <option value="Office Partition" className="bg-luxury-charcoal text-white">Office Partition</option>
+                <option value="Shower Glass" className="bg-luxury-charcoal text-white">Shower Glass</option>
+                <option value="All Glass Work" className="bg-luxury-charcoal text-white">All Glass Work</option>
+                <option value="ACP Elevation" className="bg-luxury-charcoal text-white">ACP Elevation</option>
+                <option value="Aluminium Themes" className="bg-luxury-charcoal text-white">Aluminium Themes</option>
+                
+                <option disabled className="text-luxury-gold text-xs font-semibold bg-luxury-black/90">
+                  --- GENERAL ---
+                </option>
+                <option value="Other / General Inquiry" className="bg-luxury-charcoal text-white">Other / General Inquiry</option>
+              </select>
             </div>
           </div>
 
