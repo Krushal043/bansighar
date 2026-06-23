@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { Mail, Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle } from "lucide-react";
+import { Phone, MapPin, Clock, Send, ShieldCheck, CheckCircle } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 
 export const dynamic = "force-dynamic";
@@ -182,27 +182,6 @@ function ContactFormContent() {
               <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
                 Jitendrabhai: +91 88666 82122<br />
                 Office Inquiries: +91 88666 81665
-              </p>
-            </div>
-          </div>
-
-          {/* Email Card */}
-          <div className="flex gap-4 p-5 rounded-xl bg-luxury-charcoal border border-white/5 hover:border-luxury-gold/20 transition-all duration-300">
-            <Mail className="w-5 h-5 text-luxury-gold shrink-0 mt-0.5" />
-            <div className="w-full">
-              <h4 className="text-sm font-bold text-white flex justify-between items-center">
-                Email Address
-                <a
-                  href="mailto:info@bansidhar.com"
-                  className="text-[10px] text-luxury-gold hover:text-luxury-gold-light font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
-                >
-                  Email Now
-                  <Mail className="w-3 h-3" />
-                </a>
-              </h4>
-              <p className="text-xs text-luxury-muted mt-1.5 leading-relaxed">
-                General: info@bansidhar.com<br />
-                Design Studio: bespoke@bansidhar.com
               </p>
             </div>
           </div>

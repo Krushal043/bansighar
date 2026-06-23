@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sofa, Mail, Phone, MapPin, Clock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Sofa, Phone, MapPin, Clock, ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -92,13 +92,13 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-luxury-gold shrink-0" />
                 <span className="hover:text-luxury-gold transition-colors">
-                  +91 88666 82122 / 81665
+                  +91 88666 82122
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-luxury-gold shrink-0" />
+                <Phone className="w-4 h-4 text-luxury-gold shrink-0" />
                 <span className="hover:text-luxury-gold transition-colors">
-                  info@bansidhar.com
+                  +91 88666 81665
                 </span>
               </li>
               <li className="flex items-start gap-3">
