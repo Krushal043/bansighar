@@ -7,7 +7,7 @@ import { useState } from "react";
 import { 
   FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
   FaCouch, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
-  FaBuilding, FaHammer 
+  FaBuilding, FaHammer, FaDoorOpen 
 } from "react-icons/fa";
 
 export default function Home() {
@@ -319,6 +319,7 @@ export default function Home() {
               { name: "All Glass Work", icon: <FaGem className="w-4 h-4 text-luxury-gold" /> },
               { name: "ACP Elevation", icon: <FaBuilding className="w-4 h-4 text-luxury-gold" /> },
               { name: "Aluminium Themes", icon: <FaHammer className="w-4 h-4 text-luxury-gold" /> },
+              { name: "Premium Door Solutions", icon: <FaDoorOpen className="w-4 h-4 text-luxury-gold" /> },
             ].map((svc, idx) => (
               <Link
                 key={idx}

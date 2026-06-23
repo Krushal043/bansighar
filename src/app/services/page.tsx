@@ -3,7 +3,7 @@ import Link from "next/link";
 import { 
   FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
   FaCouch, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
-  FaBuilding, FaHammer 
+  FaBuilding, FaHammer, FaDoorOpen 
 } from "react-icons/fa";
 
 export const metadata = {
@@ -142,6 +142,11 @@ export default function Services() {
       title: "Aluminium Themes",
       desc: "Modern structural louvers, exterior aluminium fins, partition profiles, and bespoke architectural metal frameworks.",
       icon: <FaHammer className="w-5 h-5 text-luxury-gold" />,
+    },
+    {
+      title: "Premium Door Solutions",
+      desc: "Custom design and complete installation of Lamination doors, premium Sunmica doors, weather-proof ACP doors, water-resistant PVC doors, and heavy-duty FRP doors.",
+      icon: <FaDoorOpen className="w-5 h-5 text-luxury-gold" />,
     },
   ];
 

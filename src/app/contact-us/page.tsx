@@ -43,6 +43,12 @@ function ContactFormContent() {
     "All Glass Work",
     "ACP Elevation",
     "Aluminium Themes",
+    "Premium Door Solutions",
+    "Lamination Door",
+    "Sunmica Door",
+    "ACP Door",
+    "PVC Door",
+    "FRP Door",
   ];
 
   useEffect(() => {
@@ -323,6 +329,12 @@ function ContactFormContent() {
                 <option value="All Glass Work" className="bg-luxury-charcoal text-white">All Glass Work</option>
                 <option value="ACP Elevation" className="bg-luxury-charcoal text-white">ACP Elevation</option>
                 <option value="Aluminium Themes" className="bg-luxury-charcoal text-white">Aluminium Themes</option>
+                <option value="Premium Door Solutions" className="bg-luxury-charcoal text-white">Premium Door Solutions (Lamination/Sunmica/ACP/PVC/FRP)</option>
+                <option value="Lamination Door" className="bg-luxury-charcoal text-white">Lamination Door</option>
+                <option value="Sunmica Door" className="bg-luxury-charcoal text-white">Sunmica Door</option>
+                <option value="ACP Door" className="bg-luxury-charcoal text-white">ACP Door</option>
+                <option value="PVC Door" className="bg-luxury-charcoal text-white">PVC Door</option>
+                <option value="FRP Door" className="bg-luxury-charcoal text-white">FRP Door</option>
                 
                 <option disabled className="text-luxury-gold text-xs font-semibold bg-luxury-black/90">
                   --- GENERAL ---
