@@ -63,7 +63,6 @@ export default function Footer() {
                 { name: "About Us", href: "/about" },
                 { name: "Our Services", href: "/services" },
                 { name: "Luxury Collections", href: "/products" },
-                { name: "PDF Catalogues", href: "/catalogues" },
                 { name: "Get in Touch", href: "/contact-us" },
               ].map((item) => (
                 <li key={item.name}>

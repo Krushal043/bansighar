@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Star, ChevronLeft, ChevronRight, Award, Compass, Heart, ShieldCheck } from "lucide-react";
+import { ArrowRight, Star, ChevronLeft, ChevronRight, Award, Compass, Heart, ShieldCheck, Play, X, MessageSquare, Trees, Hammer, Sparkles, Truck } from "lucide-react";
 import { useState } from "react";
 import { 
   FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
@@ -81,6 +81,7 @@ export default function Home() {
   ];
 
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const nextTestimonial = () => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -94,17 +95,24 @@ export default function Home() {
     <div className="relative overflow-hidden">
       {/* 1. Hero Section */}
       <section className="relative min-h-[95vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
+        {/* Background Video with Image Fallback and Overlay */}
+        <div className="absolute inset-0 z-0 bg-luxury-black">
           <Image
             src="/images/hero_furniture.png"
             alt="Luxury Furniture Hero"
             fill
-            className="object-cover object-center opacity-40 scale-105 animate-[pulse_8s_infinite_alternate]"
+            className="object-cover object-center opacity-30 scale-105"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-luxury-black/90 via-luxury-black/50 to-transparent" />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-100 scale-105"
+          >
+            <source src="/videos/banner.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -113,11 +121,11 @@ export default function Home() {
               <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-ping" />
               Established Craftsmanship
             </div>
-            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white tracking-tight leading-[1.05]">
+            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white tracking-tight leading-[1.05] drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
               Handcrafted <br />
               <span className="gold-gradient-text">Timeless Luxury</span>
             </h1>
-            <p className="text-luxury-muted text-base sm:text-lg max-w-xl leading-relaxed">
+            <p className="text-luxury-muted text-base sm:text-lg max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               At Bansidhar, we bring nature's raw beauty into your living space. Exquisitely handcrafted solid wood furniture, bespoke designs, and premium comfort customized to absolute perfection.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -236,16 +244,35 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             {/* Image Side */}
-            <div className="lg:col-span-6 relative h-[450px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-              <Image
-                src="/images/craftsmanship.png"
-                alt="Woodcrafting Legacy"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-luxury-black/80 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 p-6 glassmorphism rounded-xl border border-white/10">
-                <span className="text-2xl font-display font-bold text-luxury-gold">100% Solid Wood</span>
+            <div 
+              className="lg:col-span-6 relative h-[450px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer"
+              onClick={() => setIsVideoModalOpen(true)}
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+                <source src="/videos/craftsmanship.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-tr from-luxury-black/80 via-transparent to-transparent group-hover:bg-luxury-black/40 transition-colors duration-300" />
+              
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-luxury-gold/90 text-luxury-black flex items-center justify-center shadow-lg shadow-luxury-gold/30 group-hover:scale-110 group-hover:bg-luxury-gold transition-all duration-300 relative">
+                  {/* Pulse Rings */}
+                  <span className="absolute inset-0 rounded-full bg-luxury-gold animate-ping opacity-45" />
+                  <Play className="w-8 h-8 fill-luxury-black ml-1 relative z-10" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-6 left-6 right-6 p-6 glassmorphism rounded-xl border border-white/10 group-hover:border-luxury-gold/40 transition-colors duration-300">
+                <span className="text-2xl font-display font-bold text-luxury-gold flex items-center justify-between">
+                  100% Solid Wood
+                  <span className="text-[10px] uppercase tracking-wider text-white/60 bg-white/10 px-2 py-0.5 rounded">Watch Video</span>
+                </span>
                 <p className="text-xs text-luxury-muted mt-1">Sustainably sourced premium Indian Teak and imported Walnut.</p>
               </div>
             </div>
@@ -279,8 +306,129 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 4.5 Our Crafting Process (Horizontal Step-wise Timeline with Image Animations) */}
+      <section className="py-24 relative z-10 border-t border-white/5 bg-[#0a0a0c] overflow-hidden">
+        {/* Decorative background glows */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+              The Journey of Quality
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mt-2">
+              Our Crafting Process
+            </h2>
+            <p className="text-luxury-muted mt-4 text-sm sm:text-base leading-relaxed">
+              From raw logs to bespoke masterpieces installed in your home, discover the meticulous step-by-step path of precision woodworking.
+            </p>
+          </div>
+
+          {/* Horizontal Scroll / Flex Container */}
+          <div className="relative">
+            {/* Horizontal Connecting Line (Desktop only) */}
+            <div className="hidden lg:block absolute top-6 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-luxury-gold/5 via-luxury-gold/30 to-luxury-gold/5 z-0" />
+
+            <div className="flex gap-6 overflow-x-auto pb-8 pt-4 scrollbar-none snap-x snap-mandatory lg:grid lg:grid-cols-5 lg:overflow-x-visible lg:pb-0 lg:snap-none">
+              {[
+                {
+                  step: "01",
+                  title: "Design & Vision",
+                  desc: "We collaborate closely to define custom dimensions, layouts, timber species, and luxury hardware.",
+                  icon: <MessageSquare className="w-5 h-5 text-luxury-gold" />,
+                  image: "/images/workspace_desk.png",
+                  detail: "Includes 3D conceptual drafts"
+                },
+                {
+                  step: "02",
+                  title: "Kiln Seasoning",
+                  desc: "Logs are cut and kiln-dried to 8-12% moisture content to prevent warping over generations.",
+                  icon: <Trees className="w-5 h-5 text-luxury-gold" />,
+                  image: "/images/craftsmanship.png",
+                  detail: "Moisture-tested timber"
+                },
+                {
+                  step: "03",
+                  title: "Masterful Joinery",
+                  desc: "Legacy artisans construct frames using traditional Mortise-and-Tenon joints for structural lifetime.",
+                  icon: <Hammer className="w-5 h-5 text-luxury-gold" />,
+                  image: "/images/dining_table.png",
+                  detail: "Zero nails framework"
+                },
+                {
+                  step: "04",
+                  title: "Multi-coat Polish",
+                  desc: "Multiple stage hand-sanding followed by high-performance PU finishes and custom natural oils.",
+                  icon: <Sparkles className="w-5 h-5 text-luxury-gold" />,
+                  image: "/images/modern_sofa.png",
+                  detail: "Matte or high-gloss"
+                },
+                {
+                  step: "05",
+                  title: "White-Glove Setup",
+                  desc: "Rigorous quality check before items are padded, shipped, and custom-leveled on-site.",
+                  icon: <Truck className="w-5 h-5 text-luxury-gold" />,
+                  image: "/images/luxury_bed.png",
+                  detail: "Dedicated install team"
+                }
+              ].map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className="min-w-[280px] sm:min-w-[320px] lg:min-w-0 snap-center flex flex-col items-center text-center group z-10"
+                >
+                  {/* Step Number & Connector Dot */}
+                  <div className="relative mb-6 flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-xl bg-[#0a0a0c] flex items-center justify-center border border-luxury-gold/20 group-hover:border-luxury-gold group-hover:bg-luxury-gold/10 transition-all duration-300 group-hover:scale-105 z-10 relative">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Card with full image and hover details reveal */}
+                  <div className="relative w-full h-[380px] rounded-2xl overflow-hidden border border-white/5 group-hover:border-luxury-gold/30 transition-all duration-500 group-hover:shadow-[0_10px_35px_rgba(200,162,118,0.15)] flex flex-col justify-end p-6">
+                    {/* Full Card Background Image */}
+                    <Image 
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-w-768px) 100vw, 20vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-luxury-black/40 to-transparent transition-all duration-500 z-10 group-hover:from-luxury-black/95 group-hover:via-luxury-black/80" />
+
+                    {/* Content (Title & Revealed Details) */}
+                    <div className="relative z-20 flex flex-col gap-1">
+                      {/* Step Badge & Title */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="gold-gradient-text font-display text-2xl font-bold">{item.step}</span>
+                        <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-luxury-gold text-left">
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      {/* Description & Detail revealed on hover */}
+                      <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out flex flex-col items-start">
+                        <p className="text-luxury-muted text-xs leading-relaxed mb-4 text-left">
+                          {item.desc}
+                        </p>
+                        <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-3 rounded-full bg-luxury-gold/5 border border-luxury-gold/20 text-luxury-gold">
+                          {item.detail}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Turnkey Contracting Services Overview */}
       <section className="py-24 relative z-10 border-t border-white/5 bg-[#08080a]">
+        {/* Decorative subtle glows */}
+        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
@@ -303,43 +451,126 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Premium Service Pillars with Full-Card Background Images */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { name: "Stone Work", icon: <FaGem className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Ceiling & 2x2 Folding Ceiling", icon: <FaBorderAll className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Electric Work", icon: <FaBolt className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Plumber Work", icon: <FaFaucet className="w-4 h-4 text-luxury-gold" /> },
-              { name: "AC Work", icon: <FaWind className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Core Cutting", icon: <FaTools className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Furniture PVC & Wooden", icon: <FaCouch className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Color Work", icon: <FaPaintRoller className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Aluminium Window", icon: <FaWindowMaximize className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Office Partition", icon: <FaColumns className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Shower Glass", icon: <FaShower className="w-4 h-4 text-luxury-gold" /> },
-              { name: "All Glass Work", icon: <FaGem className="w-4 h-4 text-luxury-gold" /> },
-              { name: "ACP Elevation", icon: <FaBuilding className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Aluminium Themes", icon: <FaHammer className="w-4 h-4 text-luxury-gold" /> },
-              { name: "Premium Door Solutions", icon: <FaDoorOpen className="w-4 h-4 text-luxury-gold" /> },
-            ].map((svc, idx) => (
+              {
+                title: "Stone & Marble Works",
+                desc: "Premium Italian marble floor laying, elegant granite wall cladding, and custom quartz countertops.",
+                image: "/images/services_stone.png",
+                icon: <FaGem className="w-5 h-5 text-luxury-gold" />
+              },
+              {
+                title: "Ceiling & Partition Solutions",
+                desc: "Gypsum designer ceilings, acoustic ceiling tiles, and specialized 2x2 modular folding ceilings.",
+                image: "/images/services_ceiling.png",
+                icon: <FaBorderAll className="w-5 h-5 text-luxury-gold" />
+              },
+              {
+                title: "Smart Electrical & HVAC",
+                desc: "Automation systems, custom lighting, premium wiring, and VRF/VRV central AC engineering.",
+                image: "/images/services_electric.png",
+                icon: <FaBolt className="w-5 h-5 text-luxury-gold" />
+              },
+              {
+                title: "Bespoke PVC & Wood Joinery",
+                desc: "Water-resistant PVC modular kitchens, luxury sunmica laminates, and premium doors.",
+                image: "/images/services_woodwork.png",
+                icon: <FaCouch className="w-5 h-5 text-luxury-gold" />
+              },
+              {
+                title: "Glass & Partition Systems",
+                desc: "Frameless shower enclosures, sliding window systems, and double-glazed office partitions.",
+                image: "/images/services_glass.png",
+                icon: <FaShower className="w-5 h-5 text-luxury-gold" />
+              },
+              {
+                title: "ACP Elevation & Facades",
+                desc: "Aluminium Composite Panel (ACP) external cladding, louvers, and storefront glazing.",
+                image: "/images/services_facade.png",
+                icon: <FaBuilding className="w-5 h-5 text-luxury-gold" />
+              }
+            ].map((pillar, idx) => (
               <Link
                 key={idx}
-                href={`/services`}
-                className="p-5 rounded-xl bg-luxury-charcoal/40 border border-white/5 hover:border-luxury-gold/30 hover:bg-luxury-charcoal hover:-translate-y-1 transition-all duration-300 group flex items-center gap-4"
+                href="/services"
+                className="relative h-[320px] rounded-2xl overflow-hidden border border-white/5 hover:border-luxury-gold/30 hover:shadow-[0_10px_35px_rgba(200,162,118,0.15)] transition-all duration-500 group flex flex-col justify-end p-6 z-10"
               >
-                <div className="w-9 h-9 rounded-lg bg-luxury-gold/5 flex items-center justify-center shrink-0 group-hover:bg-luxury-gold/15 transition-all duration-300">
-                  {svc.icon}
+                {/* Background Image */}
+                <Image
+                  src={pillar.image}
+                  alt={pillar.title}
+                  fill
+                  sizes="(max-w-768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+                />
+                
+                {/* Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-luxury-black/50 to-transparent transition-all duration-500 z-10 group-hover:from-luxury-black/95 group-hover:via-luxury-black/80" />
+
+                {/* Floating Icon */}
+                <div className="absolute top-6 right-6 w-10 h-10 rounded-xl bg-luxury-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-luxury-gold group-hover:bg-luxury-gold group-hover:text-luxury-black group-hover:border-luxury-gold transition-all duration-300 z-20">
+                  {pillar.icon}
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xs sm:text-sm font-bold text-white group-hover:text-luxury-gold transition-colors">
-                    {svc.name}
-                  </span>
-                  <span className="text-[10px] text-luxury-gold/70 group-hover:text-luxury-gold transition-colors flex items-center gap-0.5 mt-0.5 opacity-0 group-hover:opacity-100 duration-300">
-                    Learn more
-                    <ArrowRight className="w-2.5 h-2.5" />
-                  </span>
+
+                {/* Content */}
+                <div className="relative z-20 flex flex-col gap-1">
+                  <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300 text-left">
+                    {pillar.title}
+                  </h3>
+                  
+                  {/* Slide up description on hover */}
+                  <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[120px] group-hover:opacity-100 transition-all duration-500 ease-in-out flex flex-col items-start mt-1">
+                    <p className="text-luxury-muted text-xs leading-relaxed text-left mb-2">
+                      {pillar.desc}
+                    </p>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-luxury-gold flex items-center gap-1">
+                      Learn details
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Detailed Capabilities Checklist */}
+          <div className="mt-16 border-t border-white/5 pt-12">
+            <h3 className="font-display text-lg font-semibold text-white mb-6 text-center md:text-left">
+              Complete Turnkey Specialties & Works
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {[
+                { name: "Stone Work", icon: <FaGem className="w-4 h-4" /> },
+                { name: "Ceiling & 2x2 Folding Ceiling", icon: <FaBorderAll className="w-4 h-4" /> },
+                { name: "Electric Work", icon: <FaBolt className="w-4 h-4" /> },
+                { name: "Plumber Work", icon: <FaFaucet className="w-4 h-4" /> },
+                { name: "AC Work", icon: <FaWind className="w-4 h-4" /> },
+                { name: "Core Cutting", icon: <FaTools className="w-4 h-4" /> },
+                { name: "Furniture PVC & Wooden", icon: <FaCouch className="w-4 h-4" /> },
+                { name: "Color Work", icon: <FaPaintRoller className="w-4 h-4" /> },
+                { name: "Aluminium Window", icon: <FaWindowMaximize className="w-4 h-4" /> },
+                { name: "Office Partition", icon: <FaColumns className="w-4 h-4" /> },
+                { name: "Shower Glass", icon: <FaShower className="w-4 h-4" /> },
+                { name: "All Glass Work", icon: <FaGem className="w-4 h-4" /> },
+                { name: "ACP Elevation", icon: <FaBuilding className="w-4 h-4" /> },
+                { name: "Aluminium Themes", icon: <FaHammer className="w-4 h-4" /> },
+                { name: "Premium Door Solutions", icon: <FaDoorOpen className="w-4 h-4" /> },
+              ].map((svc, idx) => (
+                <Link
+                  key={idx}
+                  href="/services"
+                  className="flex items-center gap-3 p-3.5 rounded-xl bg-luxury-charcoal/20 border border-white/5 hover:border-luxury-gold/20 hover:bg-luxury-charcoal/40 transition-all duration-300 group"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-luxury-gold/5 flex items-center justify-center shrink-0 text-luxury-gold group-hover:bg-luxury-gold/10 transition-colors">
+                    {svc.icon}
+                  </div>
+                  <span className="text-xs font-medium text-luxury-muted group-hover:text-white transition-colors truncate">
+                    {svc.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -412,118 +643,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Catalogues Teaser Section */}
-      <section className="py-24 bg-luxury-charcoal border-t border-white/5 relative z-10 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Text Content */}
-            <div className="lg:col-span-7 flex flex-col gap-6">
-              <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-                Digital Showroom
-              </span>
-              <h2 className="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
-                Download Our Design & Material Catalogues
-              </h2>
-              <p className="text-luxury-muted leading-relaxed">
-                Take the first step in planning your interior project. Download our curated catalogues to explore premium Indian Teak configurations, luxury sunmica laminates, PVC modular kitchen templates, and bespoke wardrobe hardware.
-              </p>
-              <p className="text-luxury-muted leading-relaxed">
-                Our catalogues provide complete technical specifications, dimensions, finish details, and layout recommendations from our master designers.
-              </p>
-              <div className="flex flex-wrap gap-4 mt-2">
-                <Link
-                  href="/catalogues"
-                  className="gold-gradient-bg text-luxury-black font-semibold text-sm tracking-wide px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300"
-                >
-                  Access All Downloads
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Quick Preview Cards */}
-            <div className="lg:col-span-5 flex flex-col gap-4">
-              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
-                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                      Wooden Furniture & Sunmica
-                    </h4>
-                    <p className="text-xs text-luxury-muted mt-0.5">Bespoke beds, tables & laminates (PDF, 2.1 MB)</p>
-                  </div>
-                </div>
-                <a
-                  href="/catalogues/wooden_furniture_sunmica.pdf"
-                  download
-                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
-                >
-                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                  </svg>
-                </a>
-              </div>
-
-              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
-                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                      PVC Furniture & Sunmica
-                    </h4>
-                    <p className="text-xs text-luxury-muted mt-0.5">PVC cabinets, kitchens & trims (PDF, 1.8 MB)</p>
-                  </div>
-                </div>
-                <a
-                  href="/catalogues/pvc_furniture_sunmica.pdf"
-                  download
-                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
-                >
-                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                  </svg>
-                </a>
-              </div>
-
-              <div className="p-6 rounded-2xl glassmorphism border border-white/10 hover:border-luxury-gold/30 hover:bg-luxury-charcoal/80 transition-all duration-300 group flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-luxury-gold/10 border border-luxury-gold/20 flex items-center justify-center text-luxury-gold group-hover:scale-105 transition-transform duration-300">
-                    <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                      Aluminium Themes & Sections
-                    </h4>
-                    <p className="text-xs text-luxury-muted mt-0.5">Partition framing & architectural (PDF, 2.5 MB)</p>
-                  </div>
-                </div>
-                <a
-                  href="/catalogues/aluminium_sections.pdf"
-                  download
-                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-luxury-gold hover:text-luxury-black flex items-center justify-center text-luxury-gold transition-all duration-300"
-                >
-                  <svg className="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 6. Testimonials Section */}
       <section className="py-24 bg-[#050505] relative z-10 border-t border-white/5">
@@ -605,6 +725,32 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Craftsmanship Video Modal */}
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+          <div className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden border border-white/10 bg-luxury-black shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 border border-white/10 text-white hover:text-luxury-gold hover:border-luxury-gold flex items-center justify-center transition-all duration-300 hover:scale-105"
+              aria-label="Close video player"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Video Player */}
+            <video
+              autoPlay
+              controls
+              className="w-full h-full object-cover"
+            >
+              <source src="/videos/craftsmanship.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
