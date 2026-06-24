@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Sofa } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Logo } from "./Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,13 +42,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-luxury-gold/10 border border-luxury-gold/25 flex items-center justify-center group-hover:bg-luxury-gold/20 transition-all duration-300">
-              <Sofa className="w-5 h-5 text-luxury-gold group-hover:scale-110 transition-transform duration-300" />
-            </div>
-            <span className="font-display font-bold tracking-wider text-xl sm:text-2xl text-luxury-text group-hover:text-luxury-gold transition-colors duration-300">
-              Bansidhar<span className="text-luxury-gold">.</span>
-            </span>
+          <Link href="/">
+            <Logo />
           </Link>
 
           {/* Desktop Navigation */}

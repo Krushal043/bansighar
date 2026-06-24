@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Sofa, Phone, MapPin, Clock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Phone, MapPin, Clock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Logo } from "./Logo";
 
 export default function Footer() {
   return (
@@ -10,16 +11,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Info */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-luxury-gold/10 border border-luxury-gold/25 flex items-center justify-center">
-                <Sofa className="w-5 h-5 text-luxury-gold" />
-              </div>
-              <span className="font-display font-bold tracking-wider text-xl text-luxury-text">
-                Bansidhar<span className="text-luxury-gold">.</span>
-              </span>
+            <Link href="/">
+              <Logo />
             </Link>
             <p className="leading-relaxed text-luxury-muted max-w-xs">
-              Bansidhar Aluminium & Furniture specializes in creating premium aluminum themes, partitions, and handcrafted furniture to elevate modern spaces.
+              Bansighar Enterprise specializes in creating premium aluminum themes, partitions, and handcrafted furniture to elevate modern spaces.
             </p>
             <div className="flex items-center gap-4 mt-2">
               <a
@@ -146,8 +142,8 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs">
-            © {new Date().getFullYear()} Bansidhar Aluminium & Furniture. All Rights Reserved.
+          <p className="text-xs text-luxury-muted mb-4 md:mb-0">
+            © {new Date().getFullYear()} Bansighar Enterprise. All Rights Reserved.
           </p>
           <div className="flex items-center gap-6 text-xs">
             <a href="#" className="hover:text-luxury-gold transition-colors">

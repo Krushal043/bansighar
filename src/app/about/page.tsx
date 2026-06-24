@@ -3,8 +3,8 @@ import Link from "next/link";
 import { TreePine, Hammer, HeartHandshake, ShieldAlert, Award, ArrowUpRight } from "lucide-react";
 
 export const metadata = {
-  title: "About Us | Bansidhar",
-  description: "Learn about the heritage, craftsmanship, and commitment to quality behind Bansidhar, custom furniture and aluminium designers.",
+  title: "About Us | Bansighar Enterprise",
+  description: "Learn about the heritage, craftsmanship, and commitment to quality behind Bansighar Enterprise, custom furniture and aluminium designers.",
 };
 
 export default function About() {
@@ -58,7 +58,7 @@ export default function About() {
             Our Heritage
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white max-w-3xl leading-tight">
-            The Story Behind <span className="gold-gradient-text">Bansidhar</span>
+            The Story Behind <span className="gold-gradient-text">Bansighar Enterprise</span>
           </h1>
           <p className="text-luxury-muted max-w-xl text-sm sm:text-base leading-relaxed mt-2">
             Bridging age-old handcrafted legacy with refined contemporary aesthetics since 2015.
@@ -75,7 +75,7 @@ export default function About() {
               Sourcing Premium Materials, Honoring Pure Hands
             </h2>
             <p className="text-luxury-muted leading-relaxed">
-              Bansidhar was born out of a desire to rescue authentic craftsmanship from the rush of mass-manufactured, short-lived designs. In an era dominated by flat-pack boards and generic themes, we set out to construct items that increase in value, character, and beauty as they age.
+              Bansighar Enterprise was born out of a desire to rescue authentic craftsmanship from the rush of mass-manufactured, short-lived designs. In an era dominated by flat-pack boards and generic themes, we set out to construct items that increase in value, character, and beauty as they age.
             </p>
             <p className="text-luxury-muted leading-relaxed">
               Our workshop operates on three core principles: selecting mature log varieties, giving artisans the time required to details every bevel, and finishing each piece with organic oils and waxes that let the natural wood grain breathe.
@@ -84,7 +84,7 @@ export default function About() {
               "We do not build items to fill a showroom. We craft heritage assets that hold families together around dining tables, study desks, and comfortable bedrooms."
             </blockquote>
             <p className="text-luxury-muted leading-relaxed">
-              Today, Bansidhar represents a community of master carpenters, metal fabricators, and designers who share one singular focus: absolute craftsmanship excellence.
+              Today, Bansighar Enterprise represents a community of master carpenters, metal fabricators, and designers who share one singular focus: absolute craftsmanship excellence.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function About() {
           <div className="lg:col-span-5 relative h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
             <Image
               src="/images/craftsmanship.png"
-              alt="Bansidhar Workshop Artisans"
+              alt="Bansighar Workshop Artisans"
               fill
               className="object-cover"
             />

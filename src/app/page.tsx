@@ -64,7 +64,7 @@ export default function Home() {
 
   const testimonials = [
     {
-      quote: "Bansidhar transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
+      quote: "Bansighar Enterprise transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
       author: "Vikram Malhotra",
       role: "Interior Designer, Mumbai",
     },
@@ -126,7 +126,7 @@ export default function Home() {
               <span className="gold-gradient-text">Timeless Luxury</span>
             </h1>
             <p className="text-luxury-muted text-base sm:text-lg max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              At Bansidhar, we bring nature's raw beauty into your living space. Exquisitely handcrafted solid wood furniture, bespoke designs, and premium comfort customized to absolute perfection.
+              At Bansighar Enterprise, we bring nature's raw beauty into your living space. Exquisitely handcrafted solid wood furniture, bespoke designs, and premium comfort customized to absolute perfection.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Link
@@ -286,7 +286,7 @@ export default function Home() {
                 Crafting Character, Shaping Logs
               </h2>
               <p className="text-luxury-muted leading-relaxed">
-                At Bansidhar, we believe that every piece of wood tells a story. For over a decade, we have been salvaging raw logs and turning them into masterpieces that carry warmth, structural integrity, and artistic prestige.
+                At Bansighar Enterprise, we believe that every piece of wood tells a story. For over a decade, we have been salvaging raw logs and turning them into masterpieces that carry warmth, structural integrity, and artistic prestige.
               </p>
               <p className="text-luxury-muted leading-relaxed">
                 We reject low-quality veneers and particle boards. Our collections are crafted entirely from premium grade timber, designed, dried, and assembled using traditional mortise-and-tenon joints combined with state-of-the-art precision machinery.

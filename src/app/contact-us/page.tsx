@@ -106,7 +106,7 @@ function ContactFormContent() {
       <div className="lg:col-span-5 flex flex-col gap-8 animate-fade-in-left">
         <div>
           <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-            Bansidhar Aluminium & Furniture
+            Bansighar Enterprise
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mt-2 mb-4">
             Connect With Our team
@@ -149,7 +149,7 @@ function ContactFormContent() {
               <h4 className="text-sm font-bold text-white flex justify-between items-center">
                 WhatsApp Chat Desk
                 <a
-                  href="https://wa.me/918866682122?text=Hi%20Bansidhar%20Aluminium%20%26%20Furniture,%20I%20am%20interested%20in%20inquiring%20about%20your%20services."
+                  href="https://wa.me/918866682122?text=Hi%20Bansighar%20Enterprise,%20I%20am%20interested%20in%20inquiring%20about%20your%20services."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
