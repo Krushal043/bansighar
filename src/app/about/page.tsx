@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TreePine, Hammer, HeartHandshake, ShieldAlert, Award, ArrowUpRight } from "lucide-react";
+import { TreePine, Hammer, HeartHandshake, Award, ArrowUpRight } from "lucide-react";
 
 export const metadata = {
   title: "About Us | Bansighar Enterprise",
@@ -67,29 +67,29 @@ export default function About() {
       </section>
 
       {/* Main Story Grid */}
-      <section className="py-20 relative z-10 border-t border-white/5">
+      <section className="py-20 relative z-10 border-t border-zinc-200/60 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           {/* Text block */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-luxury-black">
               Sourcing Premium Materials, Honoring Pure Hands
             </h2>
-            <p className="text-luxury-muted leading-relaxed">
+            <p className="text-zinc-600 leading-relaxed">
               Bansighar Enterprise was born out of a desire to rescue authentic craftsmanship from the rush of mass-manufactured, short-lived designs. In an era dominated by flat-pack boards and generic themes, we set out to construct items that increase in value, character, and beauty as they age.
             </p>
-            <p className="text-luxury-muted leading-relaxed">
+            <p className="text-zinc-600 leading-relaxed">
               Our workshop operates on three core principles: selecting mature log varieties, giving artisans the time required to details every bevel, and finishing each piece with organic oils and waxes that let the natural wood grain breathe.
             </p>
-            <blockquote className="border-l-2 border-luxury-gold pl-6 py-2 my-2 italic text-white/90 font-display text-lg">
-              "We do not build items to fill a showroom. We craft heritage assets that hold families together around dining tables, study desks, and comfortable bedrooms."
+            <blockquote className="border-l-2 border-luxury-gold pl-6 py-2 my-2 italic text-zinc-800 font-display text-lg">
+              &ldquo;We do not build items to fill a showroom. We craft heritage assets that hold families together around dining tables, study desks, and comfortable bedrooms.&rdquo;
             </blockquote>
-            <p className="text-luxury-muted leading-relaxed">
+            <p className="text-zinc-600 leading-relaxed">
               Today, Bansighar Enterprise represents a community of master carpenters, metal fabricators, and designers who share one singular focus: absolute craftsmanship excellence.
             </p>
           </div>
 
           {/* Visual block */}
-          <div className="lg:col-span-5 relative h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+          <div className="lg:col-span-5 relative h-[500px] w-full rounded-2xl overflow-hidden border border-zinc-200/60 shadow-xl">
             <Image
               src="/images/craftsmanship.png"
               alt="Bansighar Workshop Artisans"
@@ -142,33 +142,33 @@ export default function About() {
       </section>
 
       {/* Journey Timeline */}
-      <section className="py-24 relative z-10 bg-luxury-black">
+      <section className="py-24 relative z-10 bg-[#F9F9FB] border-t border-zinc-200/60">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
               The Path
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mt-2">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-luxury-black mt-2">
               Our Milestone Journey
             </h2>
           </div>
 
-          <div className="relative border-l border-white/10 max-w-3xl mx-auto pl-8 sm:pl-12 flex flex-col gap-12">
+          <div className="relative border-l border-zinc-200/80 max-w-3xl mx-auto pl-8 sm:pl-12 flex flex-col gap-12">
             {milestones.map((mile, idx) => (
               <div key={idx} className="relative group">
                 {/* Bullet */}
-                <div className="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full bg-luxury-black border-2 border-white/10 group-hover:border-luxury-gold flex items-center justify-center transition-all duration-300">
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/20 group-hover:bg-luxury-gold transition-colors duration-300" />
+                <div className="absolute -left-[41px] sm:-left-[57px] top-1.5 w-6 h-6 rounded-full bg-white border-2 border-zinc-200/80 group-hover:border-luxury-gold flex items-center justify-center transition-all duration-300">
+                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-200 group-hover:bg-luxury-gold transition-colors duration-300" />
                 </div>
                 {/* Content */}
                 <div>
                   <span className="font-display font-bold text-2xl text-luxury-gold">
                     {mile.year}
                   </span>
-                  <h3 className="text-lg font-bold text-white mt-1 mb-2">
+                  <h3 className="text-lg font-bold text-luxury-black mt-1 mb-2">
                     {mile.title}
                   </h3>
-                  <p className="text-sm text-luxury-muted leading-relaxed">
+                  <p className="text-sm text-zinc-600 leading-relaxed">
                     {mile.desc}
                   </p>
                 </div>

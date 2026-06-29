@@ -1,15 +1,82 @@
-import { Compass, Hammer, Paintbrush, Truck, ArrowRight, CheckCircle2 } from "lucide-react";
+"use client";
+
+import { useState, useRef } from "react";
 import Link from "next/link";
+import { 
+  Compass, Hammer, Paintbrush, Truck, ArrowRight, CheckCircle2, Play, X 
+} from "lucide-react";
 import { 
   FaGem, FaBorderAll, FaBolt, FaFaucet, FaWind, FaTools, 
   FaCouch, FaPaintRoller, FaWindowMaximize, FaColumns, FaShower, 
   FaBuilding, FaHammer, FaDoorOpen 
 } from "react-icons/fa";
 
-export const metadata = {
-  title: "Our Services | Bansighar Enterprise",
-  description: "Explore our premium woodworking and architectural contracting services, including custom furniture commissions and turnkey solutions.",
-};
+interface ServiceItem {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  videoTime?: string;
+}
+
+function ServiceCard({ svc }: { svc: ServiceItem }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="p-6 rounded-xl bg-luxury-charcoal/80 border border-white/5 hover:border-luxury-gold/30 hover:shadow-xl hover:shadow-black/25 transition-all duration-300 group flex flex-col gap-4 overflow-hidden relative z-10 cursor-pointer"
+    >
+      {/* Loop background video segment on hover */}
+      {svc.videoTime && (
+        <video
+          ref={videoRef}
+          preload="none"
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none z-0"
+        >
+          <source src={`/videos/banner.mp4#t=${svc.videoTime}`} type="video/mp4" />
+        </video>
+      )}
+
+      {/* Content wrapper above video background */}
+      <div className="relative z-10 flex flex-col gap-4 flex-grow">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-luxury-gold/5 flex items-center justify-center shrink-0 group-hover:bg-luxury-gold/15 transition-all duration-300">
+            {svc.icon}
+          </div>
+          <h3 className="text-base font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+            {svc.title}
+          </h3>
+        </div>
+        <p className="text-xs text-luxury-muted leading-relaxed">
+          {svc.desc}
+        </p>
+        <Link
+          href={`/contact-us?service=${encodeURIComponent(svc.title)}`}
+          className="mt-auto text-[10px] uppercase tracking-wider font-semibold text-luxury-gold hover:text-luxury-gold-light transition-colors flex items-center gap-1 group-hover:translate-x-1 transition-transform duration-300 self-start"
+        >
+          Request Quote
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function Services() {
   const serviceList = [
@@ -72,81 +139,98 @@ export default function Services() {
     },
   ];
 
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
   const turnkeyServices = [
     {
       title: "Stone Work",
       desc: "Premium Italian marble laying, granite wall cladding, custom quartz countertops, and diamond-shine floor polishing.",
       icon: <FaGem className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "0,5",
     },
     {
       title: "Ceiling & 2x2 Folding Ceiling",
       desc: "Gypsum designer ceilings, acoustic ceiling tiles, and specialized 2x2 modular folding ceilings for commercial layouts.",
       icon: <FaBorderAll className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "5,10",
     },
     {
       title: "Electric Work",
       desc: "Smart automation wiring, custom ambient lighting layouts, premium modular switches, DB dressing, and load checks.",
       icon: <FaBolt className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "10,15",
     },
     {
       title: "Plumber Work",
       desc: "High-end sanitary installations, drainage blueprints, hydro-pneumatic pressure systems, and PPR/CPVC leakproof plumbing.",
       icon: <FaFaucet className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "15,20",
     },
     {
       title: "AC Work",
       desc: "VRF/VRV central system planning, cassette and split AC pre-piping, copper pipeline dressing, and duct configuration.",
       icon: <FaWind className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "20,25",
     },
     {
       title: "Core Cutting",
       desc: "Precision RCC core drilling up to 12 inches for clean drainage, plumbing, electrical, and AC pipelines without structure damage.",
       icon: <FaTools className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "25,30",
     },
     {
       title: "PVC & Wooden Furniture",
       desc: "Custom water-resistant PVC kitchen and vanity carcasses paired with luxury wooden shutters and premium hardware.",
       icon: <FaCouch className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "30,35",
     },
     {
       title: "Color Work",
       desc: "Exquisite wall textures, luxury emulsions, wood polishing (PU/melamine), and weather-resistant external coatings.",
       icon: <FaPaintRoller className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "35,40",
     },
     {
       title: "Aluminium Window",
       desc: "Premium sliding and casement windows using system aluminium sections with double-glazed noise cancellation glasses.",
       icon: <FaWindowMaximize className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "40,45",
     },
     {
       title: "Office Partition",
       desc: "Acoustic drywall partitions, frameless glass partitions, and modular demountable office enclosures for modern workspace setups.",
       icon: <FaColumns className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "45,50",
     },
     {
       title: "Shower Glass",
       desc: "Toughened frameless shower enclosures with water-repellent coating and premium solid brass hardware fixtures.",
       icon: <FaShower className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "50,55",
     },
     {
       title: "All Glass Work",
       desc: "Beveled mirrors, designer lacquered glass, toughened glass railings, structural glazing, and architectural glass partitions.",
       icon: <FaGem className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "55,60",
     },
     {
       title: "ACP Elevation",
       desc: "Architectural external cladding using weather-proof Aluminium Composite Panels (ACP) and spider-fitting storefront glazing.",
       icon: <FaBuilding className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "12,17",
     },
     {
       title: "Aluminium Themes",
       desc: "Modern structural louvers, exterior aluminium fins, partition profiles, and bespoke architectural metal frameworks.",
       icon: <FaHammer className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "18,23",
     },
     {
       title: "Premium Door Solutions",
       desc: "Custom design and complete installation of Lamination doors, premium Sunmica doors, weather-proof ACP doors, water-resistant PVC doors, and heavy-duty FRP doors.",
       icon: <FaDoorOpen className="w-5 h-5 text-luxury-gold" />,
+      videoTime: "8,13",
     },
   ];
 
@@ -168,34 +252,34 @@ export default function Services() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 relative z-10 border-t border-white/5 bg-luxury-black">
+      <section className="py-20 relative z-10 border-t border-zinc-200/60 bg-[#F9F9FB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {serviceList.map((svc, idx) => (
               <div
                 key={idx}
-                className="p-8 sm:p-10 rounded-2xl bg-luxury-charcoal border border-white/5 hover:border-luxury-gold/30 hover:shadow-xl hover:shadow-black/20 transition-all duration-500 group flex flex-col gap-6"
+                className="p-8 sm:p-10 rounded-2xl bg-white border border-zinc-200/80 hover:border-luxury-gold/50 shadow-xs hover:shadow-md transition-all duration-500 group flex flex-col gap-6"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-luxury-gold/5 flex items-center justify-center shrink-0 group-hover:bg-luxury-gold/10 transition-colors">
                     {svc.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-luxury-black group-hover:text-luxury-gold transition-colors duration-300">
                     {svc.title}
                   </h3>
                 </div>
                 
-                <p className="text-sm text-luxury-muted leading-relaxed">
+                <p className="text-sm text-zinc-600 leading-relaxed">
                   {svc.desc}
                 </p>
 
-                <div className="border-t border-white/5 pt-6 mt-2">
-                  <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">
+                <div className="border-t border-zinc-100 pt-6 mt-2">
+                  <h4 className="text-xs font-semibold text-luxury-black uppercase tracking-wider mb-4">
                     Service Features:
                   </h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {svc.highlights.map((hl, i) => (
-                      <li key={i} className="flex items-center gap-2.5 text-xs text-luxury-muted">
+                      <li key={i} className="flex items-center gap-2.5 text-xs text-zinc-500">
                         <CheckCircle2 className="w-4 h-4 text-luxury-gold shrink-0" />
                         <span>{hl}</span>
                       </li>
@@ -219,59 +303,92 @@ export default function Services() {
       {/* Turnkey Contracting Section */}
       <section className="py-24 relative z-10 border-t border-white/5 bg-[#060608]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-              Comprehensive Contracting
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-2">
-              Turnkey & Architectural Solutions
-            </h2>
-            <p className="text-luxury-muted text-sm mt-3 leading-relaxed">
-              Beyond master woodworking, we provide comprehensive architectural and contracting services for residential, commercial, and retail layouts.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+            {/* Intro Text (7 cols) */}
+            <div className="lg:col-span-7 flex flex-col gap-5">
+              <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+                Comprehensive Contracting
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Turnkey & Architectural Solutions
+              </h2>
+              <p className="text-luxury-muted text-sm sm:text-base leading-relaxed">
+                Beyond master woodworking, we provide comprehensive turnkey architectural and contracting services. We manage the entire lifecycle of your residential, commercial, or retail layout—ensuring design integrity, quality materials, and seamless execution.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                {[
+                  "Single Point of Execution & Bills",
+                  "Meticulous Material Standards",
+                  "On-site Supervision by Engineers",
+                  "Timely Delivery & Site Handover",
+                ].map((highlight, idx) => (
+                  <div key={idx} className="flex items-center gap-3 text-xs text-luxury-muted">
+                    <CheckCircle2 className="w-4 h-4 text-luxury-gold shrink-0" />
+                    <span>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Video Showcase Card (5 cols) */}
+            <div className="lg:col-span-5">
+              <div
+                className="relative h-[280px] sm:h-[320px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer"
+                onClick={() => setIsVideoModalOpen(true)}
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                >
+                  <source src="/videos/banner.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-tr from-luxury-black/90 via-transparent to-transparent group-hover:bg-luxury-black/50 transition-colors duration-300" />
+
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-luxury-gold/90 text-luxury-black flex items-center justify-center shadow-lg shadow-luxury-gold/30 group-hover:scale-110 group-hover:bg-luxury-gold transition-all duration-300 relative">
+                    <span className="absolute inset-0 rounded-full bg-luxury-gold animate-ping opacity-45" />
+                    <Play className="w-6 h-6 fill-luxury-black ml-1 relative z-10" />
+                  </div>
+                </div>
+
+                <div className="absolute bottom-5 left-5 right-5 p-4 glassmorphism rounded-xl border border-white/10 group-hover:border-luxury-gold/40 transition-colors duration-300">
+                  <span className="text-lg font-display font-bold text-luxury-gold flex items-center justify-between">
+                    Turnkey Projects Video
+                    <span className="text-[9px] uppercase tracking-wider text-white/60 bg-white/10 px-2 py-0.5 rounded">
+                      Play Showcase
+                    </span>
+                  </span>
+                  <p className="text-[11px] text-luxury-muted mt-1">
+                    Watch our site construction & design teams in action.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {turnkeyServices.map((svc, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-xl bg-luxury-charcoal/80 border border-white/5 hover:border-luxury-gold/30 hover:shadow-xl hover:shadow-black/25 transition-all duration-300 group flex flex-col gap-4"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-luxury-gold/5 flex items-center justify-center shrink-0 group-hover:bg-luxury-gold/15 transition-all duration-300">
-                    {svc.icon}
-                  </div>
-                  <h3 className="text-base font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                    {svc.title}
-                  </h3>
-                </div>
-                <p className="text-xs text-luxury-muted leading-relaxed">
-                  {svc.desc}
-                </p>
-                <Link
-                  href={`/contact-us?service=${encodeURIComponent(svc.title)}`}
-                  className="mt-auto text-[10px] uppercase tracking-wider font-semibold text-luxury-gold hover:text-luxury-gold-light transition-colors flex items-center gap-1 group-hover:translate-x-1 transition-transform duration-300 self-start"
-                >
-                  Request Quote
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+              <ServiceCard key={idx} svc={svc} />
             ))}
           </div>
         </div>
       </section>
 
       {/* The Commission Process */}
-      <section className="py-24 bg-luxury-charcoal border-y border-white/5 relative z-10">
+      <section className="py-24 bg-white border-y border-zinc-200/60 relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
               The Blueprint
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mt-2">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-luxury-black mt-2">
               Our Crafting Journey
             </h2>
-            <p className="text-luxury-muted text-sm mt-3 leading-relaxed">
+            <p className="text-zinc-600 text-sm mt-3 leading-relaxed">
               From the initial scribble of an idea to the final placement in your residence, we guide you through a transparent 6-step flow.
             </p>
           </div>
@@ -280,17 +397,17 @@ export default function Services() {
             {steps.map((step, idx) => (
               <div key={idx} className="relative flex flex-col gap-4 group">
                 {/* Step number backdrop */}
-                <div className="font-display font-bold text-7xl text-white/[0.02] absolute -top-8 -left-2 select-none group-hover:text-luxury-gold/[0.04] transition-colors duration-300">
+                <div className="font-display font-bold text-7xl text-zinc-900/[0.03] absolute -top-8 -left-2 select-none group-hover:text-luxury-gold/[0.08] transition-colors duration-300">
                   {step.num}
                 </div>
                 <div className="relative">
                   <span className="text-xs font-semibold text-luxury-gold uppercase tracking-wider block mb-1">
                     Step {step.num}
                   </span>
-                  <h3 className="text-lg font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                  <h3 className="text-lg font-bold text-luxury-black group-hover:text-luxury-gold transition-colors duration-300">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-luxury-muted mt-3 leading-relaxed">
+                  <p className="text-sm text-zinc-600 mt-3 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -307,7 +424,7 @@ export default function Services() {
             Have a Specific Concept in Mind?
           </h2>
           <p className="text-luxury-muted max-w-lg text-sm sm:text-base leading-relaxed">
-            Send us raw sketches, photo inspirations, or architect CAD prints, and we'll draft an estimate within 48 hours.
+            Send us raw sketches, photo inspirations, or architect CAD prints, and we&apos;ll draft an estimate within 48 hours.
           </p>
           <Link
             href="/contact-us"
@@ -317,6 +434,28 @@ export default function Services() {
           </Link>
         </div>
       </section>
+
+      {/* Turnkey Video Modal */}
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+          <div className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden border border-white/10 bg-luxury-black shadow-2xl animate-fade-in-up">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/60 border border-white/10 text-white hover:text-luxury-gold hover:border-luxury-gold flex items-center justify-center transition-all duration-300 hover:scale-105"
+              aria-label="Close video player"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Video Player */}
+            <video autoPlay controls className="w-full h-full object-cover">
+              <source src="/videos/banner.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

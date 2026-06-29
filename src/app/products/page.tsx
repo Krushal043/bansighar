@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, SlidersHorizontal, X, ArrowUpRight, Star, AlertCircle, Info } from "lucide-react";
+import { Search, X, ArrowUpRight, Star, AlertCircle, Info } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
 // Define TypeScript types for safety
@@ -103,13 +103,6 @@ function ProductsContent() {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  useEffect(() => {
-    const categoryFromUrl = searchParams.get("category");
-    if (categoryFromUrl) {
-      setSelectedCategory(categoryFromUrl);
-    }
-  }, [searchParams]);
-
   const categories = ["All", "Living", "Dining", "Bedroom", "Workspace"];
 
   // Filter products based on search query and category
@@ -140,10 +133,10 @@ function ProductsContent() {
       </section>
 
       {/* Main Catalog Area */}
-      <section className="py-16 bg-luxury-black min-h-[60vh] relative z-10">
+      <section className="py-16 bg-[#F9F9FB] min-h-[60vh] relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Controls Bar */}
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-12 pb-6 border-b border-white/5">
+          <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-12 pb-6 border-b border-zinc-200">
             {/* Category tabs */}
             <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-3 md:pb-0 scrollbar-none">
               {categories.map((cat) => (
@@ -153,7 +146,7 @@ function ProductsContent() {
                   className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 shrink-0 ${
                     selectedCategory === cat
                       ? "gold-gradient-bg text-luxury-black font-bold shadow-md shadow-luxury-gold/15"
-                      : "bg-white/5 border border-white/10 text-luxury-text hover:bg-white/10 hover:border-luxury-gold/30"
+                      : "bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-50 hover:border-luxury-gold/30"
                   }`}
                 >
                   {cat}
@@ -164,18 +157,18 @@ function ProductsContent() {
             {/* Search and Filters */}
             <div className="flex items-center gap-4 w-full md:w-96">
               <div className="relative w-full">
-                <Search className="w-4 h-4 text-luxury-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Search masterpieces..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-full pl-10 pr-4 py-2.5 text-xs text-luxury-text placeholder-luxury-muted focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold transition-all"
+                  className="w-full bg-white border border-zinc-200 rounded-full pl-10 pr-4 py-2.5 text-xs text-zinc-850 placeholder-zinc-400 focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold transition-all"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-luxury-muted hover:text-white"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-450 hover:text-luxury-black"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -191,10 +184,10 @@ function ProductsContent() {
                 <div
                   key={product.id}
                   onClick={() => setSelectedProduct(product)}
-                  className="group bg-luxury-charcoal rounded-2xl overflow-hidden border border-white/5 flex flex-col hover:border-luxury-gold/30 hover:shadow-xl hover:shadow-black/50 transition-all duration-300 cursor-pointer"
+                  className="group bg-white rounded-2xl overflow-hidden border border-zinc-200/80 flex flex-col hover:border-luxury-gold/50 hover:shadow-xl transition-all duration-300 cursor-pointer"
                 >
                   {/* Image container */}
-                  <div className="relative h-72 w-full bg-zinc-900 overflow-hidden">
+                  <div className="relative h-72 w-full bg-zinc-100 overflow-hidden">
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -214,14 +207,14 @@ function ProductsContent() {
                       ))}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-luxury-black group-hover:text-luxury-gold transition-colors duration-300">
                         {product.name}
                       </h3>
-                      <p className="text-xs text-luxury-muted mt-2 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-zinc-500 mt-2 line-clamp-2 leading-relaxed">
                         {product.description}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between border-t border-white/5 pt-4 mt-auto">
+                    <div className="flex items-center justify-between border-t border-zinc-100 pt-4 mt-auto">
                       <span className="text-xs text-luxury-gold font-semibold tracking-wide">
                         {product.price}
                       </span>
@@ -235,11 +228,11 @@ function ProductsContent() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-luxury-charcoal rounded-3xl border border-white/5 max-w-md mx-auto flex flex-col items-center gap-4">
+            <div className="text-center py-20 bg-white rounded-3xl border border-zinc-200/85 max-w-md mx-auto flex flex-col items-center gap-4">
               <AlertCircle className="w-12 h-12 text-luxury-gold/50" />
-              <h3 className="text-lg font-bold text-white">No Masterpieces Found</h3>
-              <p className="text-xs text-luxury-muted px-6">
-                We couldn't find any furniture matching "{searchQuery}". Try modifying your category selection or search keywords.
+              <h3 className="text-lg font-bold text-luxury-black">No Masterpieces Found</h3>
+              <p className="text-xs text-zinc-500 px-6">
+                We couldn&apos;t find any furniture matching &ldquo;{searchQuery}&rdquo;. Try modifying your category selection or search keywords.
               </p>
               <button
                 onClick={() => {
@@ -353,6 +346,12 @@ function ProductsContent() {
 
 import { Suspense } from "react";
 
+function ProductsContentWrapper() {
+  const searchParams = useSearchParams();
+  const categoryKey = searchParams.get("category") || "All";
+  return <ProductsContent key={categoryKey} />;
+}
+
 export default function Products() {
   return (
     <Suspense
@@ -365,7 +364,7 @@ export default function Products() {
         </div>
       }
     >
-      <ProductsContent />
+      <ProductsContentWrapper />
     </Suspense>
   );
 }
