@@ -10,7 +10,6 @@ import {
   Compass,
   Heart,
   ShieldCheck,
-  Play,
   X,
   MessageSquare,
   Trees,
@@ -216,6 +215,8 @@ export default function Home() {
   ];
 
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activePillar, setActivePillar] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -262,6 +263,28 @@ export default function Home() {
     return () => window.clearInterval(intervalId);
   }, [testimonials.length]);
 
+  // Auto-advance logic for Brand Pillars
+  useEffect(() => {
+    if (brandPillars.length <= 1) return;
+
+    const intervalId = window.setInterval(() => {
+      setActivePillar((prev) => (prev + 1) % brandPillars.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [brandPillars.length]);
+
+  // Auto-advance logic for Crafting Steps
+  useEffect(() => {
+    if (craftingSteps.length <= 1) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % craftingSteps.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [craftingSteps.length]);
+
   const nextTestimonial = () => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
   };
@@ -269,6 +292,26 @@ export default function Home() {
   const prevTestimonial = () => {
     setActiveTestimonial(
       (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
+  };
+
+  const nextPillar = () => {
+    setActivePillar((prev) => (prev + 1) % brandPillars.length);
+  };
+
+  const prevPillar = () => {
+    setActivePillar(
+      (prev) => (prev - 1 + brandPillars.length) % brandPillars.length,
+    );
+  };
+
+  const nextStep = () => {
+    setActiveStep((prev) => (prev + 1) % craftingSteps.length);
+  };
+
+  const prevStep = () => {
+    setActiveStep(
+      (prev) => (prev - 1 + craftingSteps.length) % craftingSteps.length,
     );
   };
 
@@ -461,7 +504,7 @@ export default function Home() {
             {/* Right Fade Overlay */}
             <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-luxury-black to-transparent z-20 pointer-events-none" />
 
-            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+            <div className="flex gap-6 animate-marquee [animation-direction:reverse] hover:[animation-play-state:paused] w-max">
               {categories.map((cat, idx) => (
                 <Link
                   key={`c1-${idx}`}
@@ -529,284 +572,206 @@ export default function Home() {
 
       {/* 4. Brand Pillars */}
       <section className="py-24 bg-white border-b border-zinc-200/60 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {/* Scrolling Marquee Container */}
-          <div className="relative w-full overflow-hidden py-4">
-            {/* Left Fade Overlay */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
-            {/* Right Fade Overlay */}
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+            Brand Values
+          </span>
+          <h2 className="font-display text-4xl font-bold text-luxury-black mt-2 mb-12">
+            Built on Three Pillars
+          </h2>
 
-            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+          <div className="relative px-12 sm:px-20">
+            {/* Slider Container */}
+            <div className="relative min-h-[260px] flex items-center justify-center">
               {brandPillars.map((pillar, idx) => (
                 <div
-                  key={`p1-${idx}`}
-                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
+                  key={idx}
+                  className={`transition-all duration-500 absolute w-full max-w-2xl bg-zinc-50 border border-zinc-200/80 p-8 sm:p-10 rounded-3xl shadow-md ${
+                    idx === activePillar
+                      ? "opacity-100 scale-100 pointer-events-auto"
+                      : "opacity-0 scale-95 pointer-events-none"
+                  }`}
                 >
-                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
+                  <div className="w-16 h-16 rounded-2xl bg-luxury-gold/10 flex items-center justify-center mx-auto mb-6">
                     {pillar.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-luxury-black mb-3">
+                  <h3 className="text-2xl font-display font-bold text-luxury-black mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-zinc-600 leading-relaxed">
-                    {pillar.desc}
-                  </p>
-                </div>
-              ))}
-              {brandPillars.map((pillar, idx) => (
-                <div
-                  key={`p2-${idx}`}
-                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
-                    {pillar.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-luxury-black mb-3">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-zinc-600 leading-relaxed">
-                    {pillar.desc}
-                  </p>
-                </div>
-              ))}
-              {brandPillars.map((pillar, idx) => (
-                <div
-                  key={`p3-${idx}`}
-                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
-                    {pillar.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-luxury-black mb-3">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-zinc-600 leading-relaxed">
+                  <p className="text-zinc-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
                     {pillar.desc}
                   </p>
                 </div>
               ))}
             </div>
+
+            {/* Left & Right Centered Arrows */}
+            <button
+              onClick={prevPillar}
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              aria-label="Previous brand pillar"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextPillar}
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              aria-label="Next brand pillar"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {brandPillars.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActivePillar(idx)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === activePillar ? "bg-luxury-gold w-6" : "bg-zinc-300"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* 5. Legacy and Craftsmanship Section */}
       <section className="py-24 bg-luxury-charcoal border-y border-white/5 relative z-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Image Side */}
-            <div
-              className="lg:col-span-6 relative h-[450px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer"
-              onClick={() => setIsVideoModalOpen(true)}
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              >
-                <source src="/videos/craftsmanship.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-tr from-luxury-black/80 via-transparent to-transparent group-hover:bg-luxury-black/40 transition-colors duration-300" />
-
-              {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-luxury-gold/90 text-luxury-black flex items-center justify-center shadow-lg shadow-luxury-gold/30 group-hover:scale-110 group-hover:bg-luxury-gold transition-all duration-300 relative">
-                  {/* Pulse Rings */}
-                  <span className="absolute inset-0 rounded-full bg-luxury-gold animate-ping opacity-45" />
-                  <Play className="w-8 h-8 fill-luxury-black ml-1 relative z-10" />
-                </div>
-              </div>
-
-              <div className="absolute bottom-6 left-6 right-6 p-6 glassmorphism rounded-xl border border-white/10 group-hover:border-luxury-gold/40 transition-colors duration-300">
-                <span className="text-2xl font-display font-bold text-luxury-gold flex items-center justify-between">
-                  100% Solid Wood
-                  <span className="text-[10px] uppercase tracking-wider text-white/60 bg-white/10 px-2 py-0.5 rounded">
-                    Watch Video
-                  </span>
-                </span>
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="flex flex-col gap-6 items-center">
+            <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+              Our Legacy
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
+              Crafting Character, Shaping Logs
+            </h2>
+            <p className="text-luxury-muted leading-relaxed max-w-2xl mx-auto text-sm sm:text-base">
+              At Bansighar Enterprise, we believe that every piece of wood
+              tells a story. For over a decade, we have been salvaging raw
+              logs and turning them into masterpieces that carry warmth,
+              structural integrity, and artistic prestige.
+            </p>
+            <p className="text-luxury-muted leading-relaxed max-w-2xl mx-auto text-sm sm:text-base">
+              We reject low-quality veneers and particle boards. Our
+              collections are crafted entirely from premium grade timber,
+              designed, dried, and assembled using traditional
+              mortise-and-tenon joints combined with state-of-the-art
+              precision machinery.
+            </p>
+            <div className="grid grid-cols-2 gap-12 mt-6 border-t border-white/5 pt-8 w-full max-w-lg mx-auto">
+              <div>
+                <h4 className="text-3xl sm:text-4xl font-display font-bold text-luxury-gold">
+                  10+ Years
+                </h4>
                 <p className="text-xs text-luxury-muted mt-1">
-                  Sustainably sourced premium Indian Teak and imported Walnut.
+                  Exquisite Woodworking Heritage
                 </p>
               </div>
-            </div>
-
-            {/* Text Side */}
-            <div className="lg:col-span-6 flex flex-col gap-6">
-              <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-                Our Legacy
-              </span>
-              <h2 className="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">
-                Crafting Character, Shaping Logs
-              </h2>
-              <p className="text-luxury-muted leading-relaxed">
-                At Bansighar Enterprise, we believe that every piece of wood
-                tells a story. For over a decade, we have been salvaging raw
-                logs and turning them into masterpieces that carry warmth,
-                structural integrity, and artistic prestige.
-              </p>
-              <p className="text-luxury-muted leading-relaxed">
-                We reject low-quality veneers and particle boards. Our
-                collections are crafted entirely from premium grade timber,
-                designed, dried, and assembled using traditional
-                mortise-and-tenon joints combined with state-of-the-art
-                precision machinery.
-              </p>
-              <div className="grid grid-cols-2 gap-6 mt-4 border-t border-white/5 pt-6">
-                <div>
-                  <h4 className="text-3xl font-display font-bold text-luxury-gold">
-                    10+ Years
-                  </h4>
-                  <p className="text-xs text-luxury-muted mt-1">
-                    Exquisite Woodworking Heritage
-                  </p>
-                </div>
-                <div>
-                  <h4 className="text-3xl font-display font-bold text-luxury-gold">
-                    100%
-                  </h4>
-                  <p className="text-xs text-luxury-muted mt-1">
-                    Bespoke Design Satisfaction
-                  </p>
-                </div>
+              <div>
+                <h4 className="text-3xl sm:text-4xl font-display font-bold text-luxury-gold">
+                  100%
+                </h4>
+                <p className="text-xs text-luxury-muted mt-1">
+                  Bespoke Design Satisfaction
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Our Crafting Process (Horizontal Step-wise Timeline with Image Animations) */}
-      <section className="py-24 relative z-10 border-y border-zinc-200/60 bg-[#F9F9FB] overflow-hidden">
-        {/* Decorative background glows */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[140px] pointer-events-none" />
+      {/* 6. Our Crafting Process Banner */}
+      <section className="relative h-[550px] sm:h-[600px] w-full z-10 overflow-hidden flex flex-col justify-between py-16">
+        {/* Background Step Images with Crossfade */}
+        <div className="absolute inset-0 z-0 bg-luxury-black">
+          {craftingSteps.map((item, idx) => {
+            const isActive = idx === activeStep;
+            return (
+              <div
+                key={idx}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  priority={idx === 0}
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/75" />
+              </div>
+            );
+          })}
+        </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-              The Journey of Quality
-            </span>
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-luxury-black mt-2">
-              Our Crafting Process
-            </h2>
-            <p className="text-zinc-600 mt-4 text-sm sm:text-base leading-relaxed">
-              From raw logs to bespoke masterpieces installed in your home,
-              discover the meticulous step-by-step path of precision
-              woodworking.
-            </p>
-          </div>
+        {/* Content Box (Centered with Slide Transitions) */}
+        <div className="relative z-20 max-w-3xl mx-auto px-6 text-center my-auto min-h-[220px] flex items-center justify-center w-full">
+          {craftingSteps.map((item, idx) => (
+            <div
+              key={idx}
+              className={`transition-all duration-700 absolute w-full flex flex-col items-center gap-4 ${
+                idx === activeStep
+                  ? "opacity-100 scale-100 pointer-events-auto"
+                  : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-[10px] uppercase tracking-widest text-luxury-gold font-semibold">
+                  The Journey of Quality &bull; Step {item.step}
+                </span>
+                <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mt-1">
+                  Our Crafting Process
+                </h2>
+              </div>
 
-          {/* Scrolling Marquee Container */}
-          <div className="relative w-full overflow-hidden py-4">
-            {/* Left Fade Overlay */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#F9F9FB] to-transparent z-20 pointer-events-none" />
-            {/* Right Fade Overlay */}
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#F9F9FB] to-transparent z-20 pointer-events-none" />
-
-            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
-              {craftingSteps.map((item, idx) => (
-                <div
-                  key={`cs1-${idx}`}
-                  className="w-80 flex flex-col items-center text-center group z-10 shrink-0"
-                >
-                  {/* Step Number & Connector Dot */}
-                  <div className="relative mb-6 flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-zinc-200/60 flex items-center justify-center group-hover:border-luxury-gold group-hover:bg-luxury-gold/10 transition-all duration-300 group-hover:scale-105 z-10 relative">
-                      {item.icon}
-                    </div>
-                  </div>
-
-                  {/* Card with full image and hover details reveal */}
-                  <div className="relative w-full h-[380px] rounded-2xl overflow-hidden border border-zinc-200/60 group-hover:border-luxury-gold/30 transition-all duration-500 group-hover:shadow-[0_10px_35px_rgba(200,162,118,0.15)] flex flex-col justify-end p-6">
-                    {/* Full Card Background Image */}
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-w-768px) 100vw, 20vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {/* Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-luxury-black/50 to-transparent transition-all duration-500 z-10 group-hover:from-luxury-black/95 group-hover:via-luxury-black/80" />
-
-                    {/* Content (Title & Revealed Details) */}
-                    <div className="relative z-20 flex flex-col gap-1">
-                      {/* Step Badge & Title */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="gold-gradient-text font-display text-2xl font-bold">
-                          {item.step}
-                        </span>
-                        <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-luxury-gold text-left">
-                          {item.title}
-                        </h3>
-                      </div>
-
-                      {/* Description & Detail revealed on hover */}
-                      <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out flex flex-col items-start">
-                        <p className="text-luxury-muted text-xs leading-relaxed mb-4 text-left">
-                          {item.desc}
-                        </p>
-                        <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-3 rounded-full bg-luxury-gold/5 border border-luxury-gold/20 text-luxury-gold">
-                          {item.detail}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div className="flex flex-col items-center gap-2 max-w-2xl mt-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-luxury-gold">
+                  {item.title}
+                </h3>
+                <p className="text-zinc-200 text-sm sm:text-base leading-relaxed">
+                  {item.desc}
+                </p>
+                <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-luxury-gold mt-2">
+                  {item.detail}
                 </div>
-              ))}
-              {craftingSteps.map((item, idx) => (
-                <div
-                  key={`cs2-${idx}`}
-                  className="w-80 flex flex-col items-center text-center group z-10 shrink-0"
-                >
-                  {/* Step Number & Connector Dot */}
-                  <div className="relative mb-6 flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-zinc-200/60 flex items-center justify-center group-hover:border-luxury-gold group-hover:bg-luxury-gold/10 transition-all duration-300 group-hover:scale-105 z-10 relative">
-                      {item.icon}
-                    </div>
-                  </div>
-
-                  {/* Card with full image and hover details reveal */}
-                  <div className="relative w-full h-[380px] rounded-2xl overflow-hidden border border-zinc-200/60 group-hover:border-luxury-gold/30 transition-all duration-500 group-hover:shadow-[0_10px_35px_rgba(200,162,118,0.15)] flex flex-col justify-end p-6">
-                    {/* Full Card Background Image */}
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-w-768px) 100vw, 20vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {/* Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-luxury-black/50 to-transparent transition-all duration-500 z-10 group-hover:from-luxury-black/95 group-hover:via-luxury-black/80" />
-
-                    {/* Content (Title & Revealed Details) */}
-                    <div className="relative z-20 flex flex-col gap-1">
-                      {/* Step Badge & Title */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="gold-gradient-text font-display text-2xl font-bold">
-                          {item.step}
-                        </span>
-                        <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-luxury-gold text-left">
-                          {item.title}
-                        </h3>
-                      </div>
-
-                      {/* Description & Detail revealed on hover */}
-                      <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out flex flex-col items-start">
-                        <p className="text-luxury-muted text-xs leading-relaxed mb-4 text-left">
-                          {item.desc}
-                        </p>
-                        <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-3 rounded-full bg-luxury-gold/5 border border-luxury-gold/20 text-luxury-gold">
-                          {item.detail}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Left & Right Centered Arrows on both sides of the screen */}
+        <button
+          onClick={prevStep}
+          className="absolute left-4 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center backdrop-blur-md cursor-pointer hover:scale-105 z-30"
+          aria-label="Previous step"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={nextStep}
+          className="absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center backdrop-blur-md cursor-pointer hover:scale-105 z-30"
+          aria-label="Next step"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* Dots Indicator */}
+        <div className="relative z-20 flex items-center justify-center gap-2">
+          {craftingSteps.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveStep(idx)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === activeStep ? "bg-luxury-gold w-6" : "bg-white/40"
+              }`}
+              aria-label={`Go to step ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -867,49 +832,61 @@ export default function Home() {
             Trusted by Connoisseurs
           </h2>
 
-          <div className="relative min-h-[220px] flex items-center justify-center">
-            {testimonials.map((test, idx) => (
-              <div
-                key={idx}
-                className={`transition-all duration-500 absolute w-full ${
-                  idx === activeTestimonial
-                    ? "opacity-100 scale-100 pointer-events-auto"
-                    : "opacity-0 scale-95 pointer-events-none"
-                }`}
-              >
-                <p className="font-display text-lg sm:text-2xl text-zinc-800 italic leading-relaxed max-w-2xl mx-auto">
-                  &ldquo;{test.quote}&rdquo;
-                </p>
-                <div className="mt-6">
-                  <h4 className="text-luxury-gold font-bold text-base">
-                    {test.author}
-                  </h4>
-                  <p className="text-xs text-zinc-500 mt-0.5">
-                    {test.role}
+          <div className="relative px-12 sm:px-20">
+            <div className="relative min-h-[220px] flex items-center justify-center">
+              {testimonials.map((test, idx) => (
+                <div
+                  key={idx}
+                  className={`transition-all duration-500 absolute w-full ${
+                    idx === activeTestimonial
+                      ? "opacity-100 scale-100 pointer-events-auto"
+                      : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                >
+                  <p className="font-display text-lg sm:text-2xl text-zinc-800 italic leading-relaxed max-w-2xl mx-auto">
+                    &ldquo;{test.quote}&rdquo;
                   </p>
+                  <div className="mt-6">
+                    <h4 className="text-luxury-gold font-bold text-base">
+                      {test.author}
+                    </h4>
+                    <p className="text-xs text-zinc-500 mt-0.5">
+                      {test.role}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="flex items-center justify-center gap-4 mt-8">
+            {/* Left & Right Centered Arrows */}
             <button
               onClick={prevTestimonial}
-              className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
               aria-label="Previous review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <span className="text-xs text-zinc-500">
-              {activeTestimonial + 1} / {testimonials.length}
-            </span>
             <button
               onClick={nextTestimonial}
-              className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
               aria-label="Next review"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveTestimonial(idx)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === activeTestimonial ? "bg-luxury-gold w-6" : "bg-zinc-300"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
