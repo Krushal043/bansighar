@@ -23,6 +23,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent background scrolling when full screen mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
@@ -84,44 +96,71 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(true)}
             className="md:hidden p-2 rounded-lg text-luxury-text hover:text-luxury-gold hover:bg-white/5 transition-all duration-300"
-            aria-label="Toggle menu"
+            aria-label="Open menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <Menu className="w-6 h-6" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation Dropdown */}
+      {/* Mobile Full Screen Menu Overlay */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 glassmorphism border-t border-white/5 overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-[350px] opacity-100 py-6" : "max-h-0 opacity-0 py-0"
+        className={`md:hidden fixed inset-0 z-50 bg-[#0D0D0D]/98 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
+          isOpen
+            ? "opacity-100 translate-x-0 pointer-events-auto"
+            : "opacity-0 translate-x-full pointer-events-none"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-4">
-          {navItems.map((item) => {
+        {/* Top bar inside menu */}
+        <div className="flex items-center justify-between">
+          <Link href="/" onClick={() => setIsOpen(false)}>
+            <Logo />
+          </Link>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-2 rounded-lg text-luxury-text hover:text-luxury-gold hover:bg-white/5 transition-all duration-300"
+            aria-label="Close menu"
+          >
+            <X className="w-7 h-7" />
+          </button>
+        </div>
+
+        {/* Central Navigation Links */}
+        <nav className="flex flex-col gap-8 items-center my-auto">
+          {navItems.map((item, idx) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`text-base font-medium tracking-wide py-2 border-b border-white/5 transition-all duration-300 ${
-                  isActive ? "text-luxury-gold pl-2" : "text-luxury-text/80 hover:text-luxury-gold hover:pl-2"
+                className={`font-display text-3xl font-bold tracking-wide transition-all duration-300 ${
+                  isActive
+                    ? "text-luxury-gold scale-105"
+                    : "text-white/70 hover:text-luxury-gold hover:scale-105"
                 }`}
+                style={{ transitionDelay: `${idx * 50}ms` }}
               >
                 {item.name}
               </Link>
             );
           })}
+        </nav>
+
+        {/* Bottom CTA & Footer Info */}
+        <div className="flex flex-col gap-6 items-center w-full mt-auto">
           <Link
             href="/contact-us"
             onClick={() => setIsOpen(false)}
-            className="gold-gradient-bg text-luxury-black font-semibold text-center text-sm tracking-wider uppercase py-3 rounded-full mt-2 hover:opacity-90 transition-opacity"
+            className="w-full max-w-xs gold-gradient-bg text-luxury-black font-semibold text-center text-sm tracking-wider uppercase py-4 rounded-full hover:scale-105 hover:shadow-lg hover:shadow-luxury-gold/20 active:scale-95 transition-all duration-300"
           >
             Inquire Now
           </Link>
+          <div className="text-[10px] text-white/30 tracking-widest uppercase">
+            Bansighar Enterprise &bull; Est. 2016
+          </div>
         </div>
       </div>
     </header>

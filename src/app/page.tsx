@@ -217,6 +217,7 @@ export default function Home() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activePillar, setActivePillar] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(0);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -285,6 +286,17 @@ export default function Home() {
     return () => window.clearInterval(intervalId);
   }, [craftingSteps.length]);
 
+  // Auto-advance logic for Categories
+  useEffect(() => {
+    if (categories.length <= 1) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveCategory((prev) => (prev + 1) % categories.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [categories.length]);
+
   const nextTestimonial = () => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
   };
@@ -312,6 +324,16 @@ export default function Home() {
   const prevStep = () => {
     setActiveStep(
       (prev) => (prev - 1 + craftingSteps.length) % craftingSteps.length,
+    );
+  };
+
+  const nextCategory = () => {
+    setActiveCategory((prev) => (prev + 1) % categories.length);
+  };
+
+  const prevCategory = () => {
+    setActiveCategory(
+      (prev) => (prev - 1 + categories.length) % categories.length,
     );
   };
 
@@ -497,73 +519,100 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Scrolling Marquee Container */}
-          <div className="relative w-full overflow-hidden py-4">
-            {/* Left Fade Overlay */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-luxury-black to-transparent z-20 pointer-events-none" />
-            {/* Right Fade Overlay */}
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-luxury-black to-transparent z-20 pointer-events-none" />
-
-            <div className="flex gap-6 animate-marquee [animation-direction:reverse] hover:[animation-play-state:paused] w-max">
+          {/* Slider Container with Translating Track */}
+          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${activeCategory * 100}%)` }}
+            >
               {categories.map((cat, idx) => (
-                <Link
-                  key={`c1-${idx}`}
-                  href={cat.href}
-                  className="group relative w-80 h-96 rounded-2xl overflow-hidden block border border-white/5 glow-gold-hover transition-all duration-500 shrink-0"
+                <div
+                  key={idx}
+                  className="w-full shrink-0 flex justify-center px-2"
                 >
-                  {/* Background Image */}
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
+                  <Link
+                    href={cat.href}
+                    className="group relative w-full max-w-2xl h-[320px] sm:h-[420px] rounded-3xl overflow-hidden block border border-white/5 glow-gold-hover shadow-xl"
+                  >
+                    {/* Background Image */}
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-w-768px) 100vw, 40vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
 
-                  {/* Text Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-1/2">
-                    <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                      {cat.name}
-                    </h3>
-                    <p className="text-xs text-luxury-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
-                      {cat.desc}
-                    </p>
-                    <div className="w-8 h-8 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                      <ArrowRight className="w-4 h-4" />
+                    {/* Text Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end h-1/2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                        {cat.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-luxury-muted mt-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
+                        {cat.desc}
+                      </p>
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-100 sm:opacity-0 sm:group-hover:opacity-100 -translate-x-0 sm:-translate-x-4 sm:group-hover:translate-x-0 transition-all duration-300">
+                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               ))}
-              {categories.map((cat, idx) => (
-                <Link
-                  key={`c2-${idx}`}
-                  href={cat.href}
-                  className="group relative w-80 h-96 rounded-2xl overflow-hidden block border border-white/5 glow-gold-hover transition-all duration-500 shrink-0"
-                >
-                  {/* Background Image */}
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
+            </div>
 
-                  {/* Text Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-1/2">
-                    <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                      {cat.name}
-                    </h3>
-                    <p className="text-xs text-luxury-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
-                      {cat.desc}
-                    </p>
-                    <div className="w-8 h-8 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </Link>
+            {/* Desktop Side Arrows */}
+            <button
+              onClick={prevCategory}
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-md"
+              aria-label="Previous collection"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextCategory}
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-md"
+              aria-label="Next collection"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Bottom Controls (Dots & Mobile Arrows) */}
+          <div className="flex flex-col items-center justify-center gap-6 mt-8">
+            {/* Mobile Arrows */}
+            <div className="flex md:hidden items-center gap-4">
+              <button
+                onClick={prevCategory}
+                className="w-10 h-10 rounded-full border border-white/20 bg-black/40 text-white flex items-center justify-center hover:text-luxury-gold hover:border-luxury-gold/50 transition-all backdrop-blur-md"
+                aria-label="Previous collection"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <span className="text-xs text-white/80 font-medium">
+                {activeCategory + 1} / {categories.length}
+              </span>
+              <button
+                onClick={nextCategory}
+                className="w-10 h-10 rounded-full border border-white/20 bg-black/40 text-white flex items-center justify-center hover:text-luxury-gold hover:border-luxury-gold/50 transition-all backdrop-blur-md"
+                aria-label="Next collection"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Dots Indicator */}
+            <div className="flex items-center justify-center gap-2">
+              {categories.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveCategory(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === activeCategory ? "bg-luxury-gold w-6" : "bg-white/30"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
               ))}
             </div>
           </div>
@@ -580,60 +629,84 @@ export default function Home() {
             Built on Three Pillars
           </h2>
 
-          <div className="relative px-12 sm:px-20">
-            {/* Slider Container */}
-            <div className="relative min-h-[260px] flex items-center justify-center">
+          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${activePillar * 100}%)` }}
+            >
               {brandPillars.map((pillar, idx) => (
                 <div
                   key={idx}
-                  className={`transition-all duration-500 absolute w-full max-w-2xl bg-zinc-50 border border-zinc-200/80 p-8 sm:p-10 rounded-3xl shadow-md ${
-                    idx === activePillar
-                      ? "opacity-100 scale-100 pointer-events-auto"
-                      : "opacity-0 scale-95 pointer-events-none"
-                  }`}
+                  className="w-full shrink-0 flex justify-center px-2"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-luxury-gold/10 flex items-center justify-center mx-auto mb-6">
-                    {pillar.icon}
+                  <div className="w-full max-w-2xl bg-zinc-50 border border-zinc-200/80 p-8 sm:p-12 rounded-3xl shadow-md flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-luxury-gold/10 flex items-center justify-center mb-6">
+                      {pillar.icon}
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-luxury-black mb-3">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-zinc-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
+                      {pillar.desc}
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-luxury-black mb-3">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-zinc-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
-                    {pillar.desc}
-                  </p>
                 </div>
               ))}
             </div>
 
-            {/* Left & Right Centered Arrows */}
+            {/* Desktop Side Arrows */}
             <button
               onClick={prevPillar}
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
               aria-label="Previous brand pillar"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextPillar}
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
               aria-label="Next brand pillar"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {brandPillars.map((_, idx) => (
+          {/* Bottom Controls (Dots & Mobile Arrows) */}
+          <div className="flex flex-col items-center justify-center gap-6 mt-8">
+            {/* Mobile Arrows */}
+            <div className="flex md:hidden items-center gap-4">
               <button
-                key={idx}
-                onClick={() => setActivePillar(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === activePillar ? "bg-luxury-gold w-6" : "bg-zinc-300"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+                onClick={prevPillar}
+                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+                aria-label="Previous brand pillar"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <span className="text-xs text-zinc-500 font-medium">
+                {activePillar + 1} / {brandPillars.length}
+              </span>
+              <button
+                onClick={nextPillar}
+                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+                aria-label="Next brand pillar"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Dots Indicator */}
+            <div className="flex items-center justify-center gap-2">
+              {brandPillars.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActivePillar(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === activePillar ? "bg-luxury-gold w-6" : "bg-zinc-300"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -683,95 +756,166 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Our Crafting Process Banner */}
-      <section className="relative h-[550px] sm:h-[600px] w-full z-10 overflow-hidden flex flex-col justify-between py-16">
-        {/* Background Step Images with Crossfade */}
-        <div className="absolute inset-0 z-0 bg-luxury-black">
-          {craftingSteps.map((item, idx) => {
-            const isActive = idx === activeStep;
-            return (
-              <div
-                key={idx}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                }`}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  priority={idx === 0}
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black/75" />
-              </div>
-            );
-          })}
-        </div>
+      {/* 6. Our Crafting Process (Split Slider Layout: Image on Left, Text on Right) */}
+      <section className="py-24 bg-luxury-charcoal border-y border-white/5 relative z-10 overflow-hidden">
+        {/* Decorative background glows */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[140px] pointer-events-none" />
 
-        {/* Content Box (Centered with Slide Transitions) */}
-        <div className="relative z-20 max-w-3xl mx-auto px-6 text-center my-auto min-h-[220px] flex items-center justify-center w-full">
-          {craftingSteps.map((item, idx) => (
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
+              The Journey of Quality
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mt-2">
+              Our Crafting Process
+            </h2>
+            <p className="text-luxury-muted mt-4 text-sm sm:text-base leading-relaxed">
+              From raw logs to bespoke masterpieces installed in your home,
+              discover the meticulous step-by-step path of precision woodworking.
+            </p>
+          </div>
+
+          {/* Step Selector Tabs (Desktop/Tablet) */}
+          <div className="hidden md:flex justify-between items-center max-w-5xl mx-auto mb-12 border-b border-white/10 pb-4">
+            {craftingSteps.map((item, idx) => {
+              const isActive = idx === activeStep;
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setActiveStep(idx)}
+                  className="flex items-center gap-3 pb-4 relative group cursor-pointer transition-all duration-300"
+                >
+                  <span className={`font-display text-lg font-bold transition-colors ${
+                    isActive ? "text-luxury-gold" : "text-white/40 group-hover:text-white"
+                  }`}>
+                    {item.step}
+                  </span>
+                  <span className={`text-sm font-semibold transition-colors ${
+                    isActive ? "text-white" : "text-white/40 group-hover:text-white"
+                  }`}>
+                    {item.title}
+                  </span>
+                  {/* Active bottom line indicator */}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 gold-gradient-bg shadow-[0_2px_10px_rgba(200,162,118,0.5)]" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Mobile Step Selector (Scrollable horizontally) */}
+          <div className="flex md:hidden gap-6 overflow-x-auto scrollbar-none pb-4 mb-8 border-b border-white/5 snap-x snap-mandatory">
+            {craftingSteps.map((item, idx) => {
+              const isActive = idx === activeStep;
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setActiveStep(idx)}
+                  className="flex items-center gap-2 pb-2 shrink-0 snap-center relative cursor-pointer"
+                >
+                  <span className={`font-display text-sm font-bold ${
+                    isActive ? "text-luxury-gold" : "text-white/40"
+                  }`}>
+                    {item.step}
+                  </span>
+                  <span className={`text-xs font-semibold ${
+                    isActive ? "text-white" : "text-white/40"
+                  }`}>
+                    {item.title}
+                  </span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 gold-gradient-bg" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Stacked Slider Viewport with translating track */}
+          <div className="relative w-full overflow-hidden max-w-2xl mx-auto px-4 mt-8">
             <div
-              key={idx}
-              className={`transition-all duration-700 absolute w-full flex flex-col items-center gap-4 ${
-                idx === activeStep
-                  ? "opacity-100 scale-100 pointer-events-auto"
-                  : "opacity-0 scale-95 pointer-events-none"
-              }`}
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${activeStep * 100}%)` }}
             >
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-[10px] uppercase tracking-widest text-luxury-gold font-semibold">
-                  The Journey of Quality &bull; Step {item.step}
-                </span>
-                <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mt-1">
-                  Our Crafting Process
-                </h2>
-              </div>
+              {craftingSteps.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="w-full shrink-0 flex flex-col px-2"
+                >
+                  {/* 1. Image Container with overlaid Step Number & Detail Badge */}
+                  <div className="relative w-full h-[280px] sm:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-luxury-black glow-gold-hover">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-w-768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
 
-              <div className="flex flex-col items-center gap-2 max-w-2xl mt-2">
-                <h3 className="text-xl sm:text-2xl font-bold text-luxury-gold">
-                  {item.title}
-                </h3>
-                <p className="text-zinc-200 text-sm sm:text-base leading-relaxed">
-                  {item.desc}
-                </p>
-                <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-4 rounded-full bg-white/10 border border-white/20 text-luxury-gold mt-2">
-                  {item.detail}
+                    {/* Step Number Overlay */}
+                    <div className="absolute top-6 left-6 z-20 w-12 h-12 rounded-2xl gold-gradient-bg flex items-center justify-center font-display text-xl font-bold text-luxury-black shadow-lg">
+                      {item.step}
+                    </div>
+
+                    {/* Floating Detail Badge */}
+                    <div className="absolute bottom-6 right-6 z-20 px-4 py-2 rounded-xl bg-luxury-black/60 backdrop-blur-md border border-white/10 text-[10px] font-semibold uppercase tracking-wider text-luxury-gold shadow-lg">
+                      {item.detail}
+                    </div>
+                  </div>
+
+                  {/* 2. Little Space under image */}
+                  <div className="mt-6 text-center flex flex-col items-center gap-2">
+                    {/* 3. Name & Description */}
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-luxury-muted text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Left & Right Centered Arrows on both sides of the screen */}
-        <button
-          onClick={prevStep}
-          className="absolute left-4 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center backdrop-blur-md cursor-pointer hover:scale-105 z-30"
-          aria-label="Previous step"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextStep}
-          className="absolute right-4 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center backdrop-blur-md cursor-pointer hover:scale-105 z-30"
-          aria-label="Next step"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+          {/* Bottom Controls Bar */}
+          <div className="flex flex-col items-center justify-center gap-6 mt-12 border-t border-white/5 pt-8">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={prevStep}
+                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center cursor-pointer hover:scale-105"
+                aria-label="Previous step"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <span className="text-xs text-white/80 font-medium tracking-wider">
+                {activeStep + 1} / {craftingSteps.length}
+              </span>
+              <button
+                onClick={nextStep}
+                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center cursor-pointer hover:scale-105"
+                aria-label="Next step"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
 
-        {/* Dots Indicator */}
-        <div className="relative z-20 flex items-center justify-center gap-2">
-          {craftingSteps.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveStep(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                idx === activeStep ? "bg-luxury-gold w-6" : "bg-white/40"
-              }`}
-              aria-label={`Go to step ${idx + 1}`}
-            />
-          ))}
+            {/* Dots Indicator */}
+            <div className="flex items-center justify-center gap-2">
+              {craftingSteps.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveStep(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === activeStep ? "bg-luxury-gold w-6" : "bg-white/20"
+                  }`}
+                  aria-label={`Go to step ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -832,7 +976,7 @@ export default function Home() {
             Trusted by Connoisseurs
           </h2>
 
-          <div className="relative px-12 sm:px-20">
+          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
             <div className="relative min-h-[220px] flex items-center justify-center">
               {testimonials.map((test, idx) => (
                 <div
@@ -858,35 +1002,59 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Left & Right Centered Arrows */}
+            {/* Desktop Side Arrows */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
               aria-label="Previous review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs flex items-center justify-center transition-all cursor-pointer hover:scale-105"
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
               aria-label="Next review"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {testimonials.map((_, idx) => (
+          {/* Bottom Controls (Dots & Mobile Arrows) */}
+          <div className="flex flex-col items-center justify-center gap-6 mt-8">
+            {/* Mobile Arrows */}
+            <div className="flex md:hidden items-center gap-4">
               <button
-                key={idx}
-                onClick={() => setActiveTestimonial(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === activeTestimonial ? "bg-luxury-gold w-6" : "bg-zinc-300"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+                onClick={prevTestimonial}
+                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+                aria-label="Previous review"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <span className="text-xs text-zinc-500 font-medium">
+                {activeTestimonial + 1} / {testimonials.length}
+              </span>
+              <button
+                onClick={nextTestimonial}
+                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
+                aria-label="Next review"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Dots Indicator */}
+            <div className="flex items-center justify-center gap-2">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveTestimonial(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === activeTestimonial ? "bg-luxury-gold w-6" : "bg-zinc-300"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
