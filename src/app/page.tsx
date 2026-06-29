@@ -28,7 +28,6 @@ import {
   FaBorderAll,
   FaBolt,
   FaFaucet,
-  FaWind,
   FaTools,
   FaCouch,
   FaPaintRoller,
@@ -132,6 +131,67 @@ export default function Home() {
     { name: "ACP Elevation", icon: <FaBuilding className="w-8 h-8" /> },
     { name: "Aluminium Themes", icon: <FaHammer className="w-8 h-8" /> },
     { name: "Premium Door Solutions", icon: <FaDoorOpen className="w-8 h-8" /> },
+  ];
+
+  const brandPillars = [
+    {
+      icon: <Award className="w-8 h-8 text-luxury-gold" />,
+      title: "Exquisite Artistry",
+      desc: "Every item is masterfully crafted by legacy artisans using premium joinery and finishes that last generations.",
+    },
+    {
+      icon: <Compass className="w-8 h-8 text-luxury-gold" />,
+      title: "Bespoke Customization",
+      desc: "Tailored to your architectural spaces. Choose from premium Teak, Oak, Walnut, and designer fabrics.",
+    },
+    {
+      icon: <Heart className="w-8 h-8 text-luxury-gold" />,
+      title: "Eco Responsibility",
+      desc: "We exclusively source premium wood from sustainably managed government woodlands and certified forests.",
+    },
+  ];
+
+  const craftingSteps = [
+    {
+      step: "01",
+      title: "Design & Vision",
+      desc: "We collaborate closely to define custom dimensions, layouts, timber species, and luxury hardware.",
+      icon: <MessageSquare className="w-5 h-5 text-luxury-gold" />,
+      image: "/images/workspace_desk.png",
+      detail: "Includes 3D conceptual drafts",
+    },
+    {
+      step: "02",
+      title: "Kiln Seasoning",
+      desc: "Logs are cut and kiln-dried to 8-12% moisture content to prevent warping over generations.",
+      icon: <Trees className="w-5 h-5 text-luxury-gold" />,
+      image: "/images/craftsmanship.png",
+      detail: "Moisture-tested timber",
+    },
+    {
+      step: "03",
+      title: "Masterful Joinery",
+      desc: "Legacy artisans construct frames using traditional Mortise-and-Tenon joints for structural lifetime.",
+      icon: <Hammer className="w-5 h-5 text-luxury-gold" />,
+      image: "/images/dining_table.png",
+      detail: "Zero nails framework",
+    },
+    {
+      step: "04",
+      title: "Multi-coat Polish",
+      desc: "Multiple stage hand-sanding followed by high-performance PU finishes and custom natural oils.",
+      icon: <Sparkles className="w-5 h-5 text-luxury-gold" />,
+      image: "/images/modern_sofa.png",
+      detail: "Matte or high-gloss",
+    },
+    {
+      step: "05",
+      title: "White-Glove Setup",
+      desc: "Rigorous quality check before items are padded, shipped, and custom-leveled on-site.",
+      icon: <Truck className="w-5 h-5 text-luxury-gold" />,
+      image: "/images/luxury_bed.png",
+      detail: "Dedicated install team",
+    },
   ];
 
   const testimonials = [
@@ -394,37 +454,75 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((cat, idx) => (
-              <Link
-                key={idx}
-                href={cat.href}
-                className="group relative h-96 rounded-2xl overflow-hidden block border border-white/5 glow-gold-hover transition-all duration-500"
-              >
-                {/* Background Image */}
-                <Image
-                  src={cat.image}
-                  alt={cat.name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
+          {/* Scrolling Marquee Container */}
+          <div className="relative w-full overflow-hidden py-4">
+            {/* Left Fade Overlay */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-luxury-black to-transparent z-20 pointer-events-none" />
+            {/* Right Fade Overlay */}
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-luxury-black to-transparent z-20 pointer-events-none" />
 
-                {/* Text Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-1/2">
-                  <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
-                    {cat.name}
-                  </h3>
-                  <p className="text-xs text-luxury-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
-                    {cat.desc}
-                  </p>
-                  <div className="w-8 h-8 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                    <ArrowRight className="w-4 h-4" />
+            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+              {categories.map((cat, idx) => (
+                <Link
+                  key={`c1-${idx}`}
+                  href={cat.href}
+                  className="group relative w-80 h-96 rounded-2xl overflow-hidden block border border-white/5 glow-gold-hover transition-all duration-500 shrink-0"
+                >
+                  {/* Background Image */}
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
+
+                  {/* Text Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-1/2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-luxury-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
+                      {cat.desc}
+                    </p>
+                    <div className="w-8 h-8 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+              {categories.map((cat, idx) => (
+                <Link
+                  key={`c2-${idx}`}
+                  href={cat.href}
+                  className="group relative w-80 h-96 rounded-2xl overflow-hidden block border border-white/5 glow-gold-hover transition-all duration-500 shrink-0"
+                >
+                  {/* Background Image */}
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/60 to-transparent opacity-90" />
+
+                  {/* Text Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end h-1/2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs text-luxury-muted mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 line-clamp-2">
+                      {cat.desc}
+                    </p>
+                    <div className="w-8 h-8 rounded-full bg-luxury-gold text-luxury-black flex items-center justify-center mt-4 self-start opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -432,39 +530,63 @@ export default function Home() {
       {/* 4. Brand Pillars */}
       <section className="py-24 bg-white border-b border-zinc-200/60 relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Award className="w-8 h-8 text-luxury-gold" />,
-                title: "Exquisite Artistry",
-                desc: "Every item is masterfully crafted by legacy artisans using premium joinery and finishes that last generations.",
-              },
-              {
-                icon: <Compass className="w-8 h-8 text-luxury-gold" />,
-                title: "Bespoke Customization",
-                desc: "Tailored to your architectural spaces. Choose from premium Teak, Oak, Walnut, and designer fabrics.",
-              },
-              {
-                icon: <Heart className="w-8 h-8 text-luxury-gold" />,
-                title: "Eco Responsibility",
-                desc: "We exclusively source premium wood from sustainably managed government woodlands and certified forests.",
-              },
-            ].map((pillar, idx) => (
-              <div
-                key={idx}
-                className="p-8 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 hover:-translate-y-1 group"
-              >
-                <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
-                  {pillar.icon}
+          {/* Scrolling Marquee Container */}
+          <div className="relative w-full overflow-hidden py-4">
+            {/* Left Fade Overlay */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
+            {/* Right Fade Overlay */}
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
+
+            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+              {brandPillars.map((pillar, idx) => (
+                <div
+                  key={`p1-${idx}`}
+                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-luxury-black mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-zinc-600 leading-relaxed">
+                    {pillar.desc}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-luxury-black mb-3">
-                  {pillar.title}
-                </h3>
-                <p className="text-zinc-600 leading-relaxed">
-                  {pillar.desc}
-                </p>
-              </div>
-            ))}
+              ))}
+              {brandPillars.map((pillar, idx) => (
+                <div
+                  key={`p2-${idx}`}
+                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-luxury-black mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-zinc-600 leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </div>
+              ))}
+              {brandPillars.map((pillar, idx) => (
+                <div
+                  key={`p3-${idx}`}
+                  className="p-8 w-80 h-72 shrink-0 rounded-2xl bg-zinc-50 border border-zinc-200/80 shadow-xs hover:shadow-md hover:border-luxury-gold/50 transition-all duration-300 group"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-luxury-gold/10 flex items-center justify-center mb-6 group-hover:bg-luxury-gold/20 transition-colors">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-luxury-black mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-zinc-600 leading-relaxed">
+                    {pillar.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -575,57 +697,68 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Horizontal Scroll / Flex Container */}
-          <div className="relative">
-            {/* Horizontal Connecting Line (Desktop only) */}
-            <div className="hidden lg:block absolute top-6 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-luxury-gold/5 via-luxury-gold/30 to-luxury-gold/5 z-0" />
+          {/* Scrolling Marquee Container */}
+          <div className="relative w-full overflow-hidden py-4">
+            {/* Left Fade Overlay */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#F9F9FB] to-transparent z-20 pointer-events-none" />
+            {/* Right Fade Overlay */}
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#F9F9FB] to-transparent z-20 pointer-events-none" />
 
-            <div className="flex gap-6 overflow-x-auto pb-8 pt-4 scrollbar-none snap-x snap-mandatory lg:grid lg:grid-cols-5 lg:overflow-x-visible lg:pb-0 lg:snap-none">
-              {[
-                {
-                  step: "01",
-                  title: "Design & Vision",
-                  desc: "We collaborate closely to define custom dimensions, layouts, timber species, and luxury hardware.",
-                  icon: <MessageSquare className="w-5 h-5 text-luxury-gold" />,
-                  image: "/images/workspace_desk.png",
-                  detail: "Includes 3D conceptual drafts",
-                },
-                {
-                  step: "02",
-                  title: "Kiln Seasoning",
-                  desc: "Logs are cut and kiln-dried to 8-12% moisture content to prevent warping over generations.",
-                  icon: <Trees className="w-5 h-5 text-luxury-gold" />,
-                  image: "/images/craftsmanship.png",
-                  detail: "Moisture-tested timber",
-                },
-                {
-                  step: "03",
-                  title: "Masterful Joinery",
-                  desc: "Legacy artisans construct frames using traditional Mortise-and-Tenon joints for structural lifetime.",
-                  icon: <Hammer className="w-5 h-5 text-luxury-gold" />,
-                  image: "/images/dining_table.png",
-                  detail: "Zero nails framework",
-                },
-                {
-                  step: "04",
-                  title: "Multi-coat Polish",
-                  desc: "Multiple stage hand-sanding followed by high-performance PU finishes and custom natural oils.",
-                  icon: <Sparkles className="w-5 h-5 text-luxury-gold" />,
-                  image: "/images/modern_sofa.png",
-                  detail: "Matte or high-gloss",
-                },
-                {
-                  step: "05",
-                  title: "White-Glove Setup",
-                  desc: "Rigorous quality check before items are padded, shipped, and custom-leveled on-site.",
-                  icon: <Truck className="w-5 h-5 text-luxury-gold" />,
-                  image: "/images/luxury_bed.png",
-                  detail: "Dedicated install team",
-                },
-              ].map((item, idx) => (
+            <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused] w-max">
+              {craftingSteps.map((item, idx) => (
                 <div
-                  key={idx}
-                  className="min-w-[280px] sm:min-w-[320px] lg:min-w-0 snap-center flex flex-col items-center text-center group z-10"
+                  key={`cs1-${idx}`}
+                  className="w-80 flex flex-col items-center text-center group z-10 shrink-0"
+                >
+                  {/* Step Number & Connector Dot */}
+                  <div className="relative mb-6 flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-xl bg-white border border-zinc-200/60 flex items-center justify-center group-hover:border-luxury-gold group-hover:bg-luxury-gold/10 transition-all duration-300 group-hover:scale-105 z-10 relative">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Card with full image and hover details reveal */}
+                  <div className="relative w-full h-[380px] rounded-2xl overflow-hidden border border-zinc-200/60 group-hover:border-luxury-gold/30 transition-all duration-500 group-hover:shadow-[0_10px_35px_rgba(200,162,118,0.15)] flex flex-col justify-end p-6">
+                    {/* Full Card Background Image */}
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-w-768px) 100vw, 20vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-luxury-black/90 via-luxury-black/50 to-transparent transition-all duration-500 z-10 group-hover:from-luxury-black/95 group-hover:via-luxury-black/80" />
+
+                    {/* Content (Title & Revealed Details) */}
+                    <div className="relative z-20 flex flex-col gap-1">
+                      {/* Step Badge & Title */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="gold-gradient-text font-display text-2xl font-bold">
+                          {item.step}
+                        </span>
+                        <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-luxury-gold text-left">
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      {/* Description & Detail revealed on hover */}
+                      <div className="max-h-0 opacity-0 overflow-hidden group-hover:max-h-[200px] group-hover:opacity-100 transition-all duration-500 ease-in-out flex flex-col items-start">
+                        <p className="text-luxury-muted text-xs leading-relaxed mb-4 text-left">
+                          {item.desc}
+                        </p>
+                        <div className="text-[10px] font-semibold tracking-wider uppercase py-1.5 px-3 rounded-full bg-luxury-gold/5 border border-luxury-gold/20 text-luxury-gold">
+                          {item.detail}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {craftingSteps.map((item, idx) => (
+                <div
+                  key={`cs2-${idx}`}
+                  className="w-80 flex flex-col items-center text-center group z-10 shrink-0"
                 >
                   {/* Step Number & Connector Dot */}
                   <div className="relative mb-6 flex flex-col items-center">
