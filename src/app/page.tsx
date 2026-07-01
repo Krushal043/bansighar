@@ -113,6 +113,12 @@ export default function Home() {
     },
   ];
 
+  const clonedCategories = [
+    categories[categories.length - 1],
+    ...categories,
+    categories[0],
+  ];
+
   const scrollingServices = [
     { name: "Furniture Work", icon: <FaCouch className="w-8 h-8" /> },
     { name: "False Ceiling", icon: <FaBorderAll className="w-8 h-8" /> },
@@ -148,6 +154,12 @@ export default function Home() {
       title: "Eco Responsibility",
       desc: "We exclusively source premium wood from sustainably managed government woodlands and certified forests.",
     },
+  ];
+
+  const clonedBrandPillars = [
+    brandPillars[brandPillars.length - 1],
+    ...brandPillars,
+    brandPillars[0],
   ];
 
   const craftingSteps = [
@@ -193,6 +205,12 @@ export default function Home() {
     },
   ];
 
+  const clonedCraftingSteps = [
+    craftingSteps[craftingSteps.length - 1],
+    ...craftingSteps,
+    craftingSteps[0],
+  ];
+
   const testimonials = [
     {
       quote:
@@ -215,9 +233,33 @@ export default function Home() {
   ];
 
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activePillar, setActivePillar] = useState(0);
-  const [activeStep, setActiveStep] = useState(0);
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [currentPillarIndex, setCurrentPillarIndex] = useState(1);
+  const [pillarTransitionEnabled, setPillarTransitionEnabled] = useState(true);
+
+  // Derived activePillar (0 to 2)
+  const activePillar = currentPillarIndex === 0
+    ? brandPillars.length - 1
+    : currentPillarIndex === brandPillars.length + 1
+      ? 0
+      : currentPillarIndex - 1;
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
+
+  // Derived activeStep (0 to 4) for tabs, dots, etc.
+  const activeStep = currentIndex === 0
+    ? craftingSteps.length - 1
+    : currentIndex === craftingSteps.length + 1
+      ? 0
+      : currentIndex - 1;
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(1);
+  const [categoryTransitionEnabled, setCategoryTransitionEnabled] = useState(true);
+
+  // Derived activeCategory (0 to 3)
+  const activeCategory = currentCategoryIndex === 0
+    ? categories.length - 1
+    : currentCategoryIndex === categories.length + 1
+      ? 0
+      : currentCategoryIndex - 1;
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -269,33 +311,63 @@ export default function Home() {
     if (brandPillars.length <= 1) return;
 
     const intervalId = window.setInterval(() => {
-      setActivePillar((prev) => (prev + 1) % brandPillars.length);
+      setCurrentPillarIndex((prev) => prev + 1);
     }, 5000);
 
     return () => window.clearInterval(intervalId);
   }, [brandPillars.length]);
+
+  // Re-enable transition after quick reset of currentPillarIndex
+  useEffect(() => {
+    if (!pillarTransitionEnabled) {
+      const timeout = setTimeout(() => {
+        setPillarTransitionEnabled(true);
+      }, 20);
+      return () => clearTimeout(timeout);
+    }
+  }, [pillarTransitionEnabled]);
 
   // Auto-advance logic for Crafting Steps
   useEffect(() => {
     if (craftingSteps.length <= 1) return;
 
     const intervalId = window.setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % craftingSteps.length);
+      setCurrentIndex((prev) => prev + 1);
     }, 5000);
 
     return () => window.clearInterval(intervalId);
   }, [craftingSteps.length]);
+
+  // Re-enable transition after quick reset of currentIndex
+  useEffect(() => {
+    if (!transitionEnabled) {
+      const timeout = setTimeout(() => {
+        setTransitionEnabled(true);
+      }, 20);
+      return () => clearTimeout(timeout);
+    }
+  }, [transitionEnabled]);
 
   // Auto-advance logic for Categories
   useEffect(() => {
     if (categories.length <= 1) return;
 
     const intervalId = window.setInterval(() => {
-      setActiveCategory((prev) => (prev + 1) % categories.length);
+      setCurrentCategoryIndex((prev) => prev + 1);
     }, 5000);
 
     return () => window.clearInterval(intervalId);
   }, [categories.length]);
+
+  // Re-enable transition after quick reset of currentCategoryIndex
+  useEffect(() => {
+    if (!categoryTransitionEnabled) {
+      const timeout = setTimeout(() => {
+        setCategoryTransitionEnabled(true);
+      }, 20);
+      return () => clearTimeout(timeout);
+    }
+  }, [categoryTransitionEnabled]);
 
   const nextTestimonial = () => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -308,33 +380,72 @@ export default function Home() {
   };
 
   const nextPillar = () => {
-    setActivePillar((prev) => (prev + 1) % brandPillars.length);
+    setCurrentPillarIndex((prev) => prev + 1);
   };
 
   const prevPillar = () => {
-    setActivePillar(
-      (prev) => (prev - 1 + brandPillars.length) % brandPillars.length,
-    );
+    setCurrentPillarIndex((prev) => prev - 1);
+  };
+
+  const handlePillarSelect = (idx: number) => {
+    setPillarTransitionEnabled(true);
+    setCurrentPillarIndex(idx + 1);
+  };
+
+  const handlePillarTransitionEnd = () => {
+    if (currentPillarIndex === 0) {
+      setPillarTransitionEnabled(false);
+      setCurrentPillarIndex(brandPillars.length);
+    } else if (currentPillarIndex === brandPillars.length + 1) {
+      setPillarTransitionEnabled(false);
+      setCurrentPillarIndex(1);
+    }
   };
 
   const nextStep = () => {
-    setActiveStep((prev) => (prev + 1) % craftingSteps.length);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevStep = () => {
-    setActiveStep(
-      (prev) => (prev - 1 + craftingSteps.length) % craftingSteps.length,
-    );
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  const handleStepSelect = (idx: number) => {
+    setTransitionEnabled(true);
+    setCurrentIndex(idx + 1);
+  };
+
+  const handleTransitionEnd = () => {
+    if (currentIndex === 0) {
+      setTransitionEnabled(false);
+      setCurrentIndex(craftingSteps.length);
+    } else if (currentIndex === craftingSteps.length + 1) {
+      setTransitionEnabled(false);
+      setCurrentIndex(1);
+    }
   };
 
   const nextCategory = () => {
-    setActiveCategory((prev) => (prev + 1) % categories.length);
+    setCurrentCategoryIndex((prev) => prev + 1);
   };
 
   const prevCategory = () => {
-    setActiveCategory(
-      (prev) => (prev - 1 + categories.length) % categories.length,
-    );
+    setCurrentCategoryIndex((prev) => prev - 1);
+  };
+
+  const handleCategorySelect = (idx: number) => {
+    setCategoryTransitionEnabled(true);
+    setCurrentCategoryIndex(idx + 1);
+  };
+
+  const handleCategoryTransitionEnd = () => {
+    if (currentCategoryIndex === 0) {
+      setCategoryTransitionEnabled(false);
+      setCurrentCategoryIndex(categories.length);
+    } else if (currentCategoryIndex === categories.length + 1) {
+      setCategoryTransitionEnabled(false);
+      setCurrentCategoryIndex(1);
+    }
   };
 
   return (
@@ -499,9 +610,9 @@ export default function Home() {
       </section>
 
       {/* 3. Category Showcase */}
-      <section className="py-24 relative z-10 bg-luxury-black border-y border-white/5">
+      <section className="py-16 relative z-10 bg-luxury-black border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
                 Curated Spaces
@@ -522,10 +633,11 @@ export default function Home() {
           {/* Slider Container with Translating Track */}
           <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${activeCategory * 100}%)` }}
+              className={`flex ${categoryTransitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
+              style={{ transform: `translateX(-${currentCategoryIndex * 100}%)` }}
+              onTransitionEnd={handleCategoryTransitionEnd}
             >
-              {categories.map((cat, idx) => (
+              {clonedCategories.map((cat, idx) => (
                 <div
                   key={idx}
                   className="w-full shrink-0 flex justify-center px-2"
@@ -561,53 +673,16 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            {/* Desktop Side Arrows */}
-            <button
-              onClick={prevCategory}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-md"
-              aria-label="Previous collection"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextCategory}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-white/20 bg-black/40 text-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30 backdrop-blur-md"
-              aria-label="Next collection"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
-          {/* Bottom Controls (Dots & Mobile Arrows) */}
-          <div className="flex flex-col items-center justify-center gap-6 mt-8">
-            {/* Mobile Arrows */}
-            <div className="flex md:hidden items-center gap-4">
-              <button
-                onClick={prevCategory}
-                className="w-10 h-10 rounded-full border border-white/20 bg-black/40 text-white flex items-center justify-center hover:text-luxury-gold hover:border-luxury-gold/50 transition-all backdrop-blur-md"
-                aria-label="Previous collection"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <span className="text-xs text-white/80 font-medium">
-                {activeCategory + 1} / {categories.length}
-              </span>
-              <button
-                onClick={nextCategory}
-                className="w-10 h-10 rounded-full border border-white/20 bg-black/40 text-white flex items-center justify-center hover:text-luxury-gold hover:border-luxury-gold/50 transition-all backdrop-blur-md"
-                aria-label="Next collection"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
+          {/* Bottom Controls (Dots only) */}
+          <div className="flex flex-col items-center justify-center mt-6">
             {/* Dots Indicator */}
             <div className="flex items-center justify-center gap-2">
               {categories.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveCategory(idx)}
+                  onClick={() => handleCategorySelect(idx)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     idx === activeCategory ? "bg-luxury-gold w-6" : "bg-white/30"
                   }`}
@@ -620,21 +695,22 @@ export default function Home() {
       </section>
 
       {/* 4. Brand Pillars */}
-      <section className="py-24 bg-white border-b border-zinc-200/60 relative z-10">
+      <section className="py-16 bg-white border-b border-zinc-200/60 relative z-10">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
             Brand Values
           </span>
-          <h2 className="font-display text-4xl font-bold text-luxury-black mt-2 mb-12">
+          <h2 className="font-display text-4xl font-bold text-luxury-black mt-2 mb-8">
             Built on Three Pillars
           </h2>
 
           <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${activePillar * 100}%)` }}
+              className={`flex ${pillarTransitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
+              style={{ transform: `translateX(-${currentPillarIndex * 100}%)` }}
+              onTransitionEnd={handlePillarTransitionEnd}
             >
-              {brandPillars.map((pillar, idx) => (
+              {clonedBrandPillars.map((pillar, idx) => (
                 <div
                   key={idx}
                   className="w-full shrink-0 flex justify-center px-2"
@@ -653,53 +729,16 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            {/* Desktop Side Arrows */}
-            <button
-              onClick={prevPillar}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
-              aria-label="Previous brand pillar"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextPillar}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-zinc-200 bg-white hover:text-luxury-gold hover:border-luxury-gold/50 shadow-xs items-center justify-center transition-all cursor-pointer hover:scale-105 z-30"
-              aria-label="Next brand pillar"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
-          {/* Bottom Controls (Dots & Mobile Arrows) */}
-          <div className="flex flex-col items-center justify-center gap-6 mt-8">
-            {/* Mobile Arrows */}
-            <div className="flex md:hidden items-center gap-4">
-              <button
-                onClick={prevPillar}
-                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
-                aria-label="Previous brand pillar"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <span className="text-xs text-zinc-500 font-medium">
-                {activePillar + 1} / {brandPillars.length}
-              </span>
-              <button
-                onClick={nextPillar}
-                className="w-10 h-10 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-luxury-gold hover:border-luxury-gold/50 transition-all"
-                aria-label="Next brand pillar"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
+          {/* Bottom Controls (Dots only) */}
+          <div className="flex flex-col items-center justify-center mt-6">
             {/* Dots Indicator */}
             <div className="flex items-center justify-center gap-2">
               {brandPillars.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActivePillar(idx)}
+                  onClick={() => handlePillarSelect(idx)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     idx === activePillar ? "bg-luxury-gold w-6" : "bg-zinc-300"
                   }`}
@@ -757,12 +796,12 @@ export default function Home() {
       </section>
 
       {/* 6. Our Crafting Process (Split Slider Layout: Image on Left, Text on Right) */}
-      <section className="py-24 bg-luxury-charcoal border-y border-white/5 relative z-10 overflow-hidden">
+      <section className="py-16 bg-luxury-charcoal border-y border-white/5 relative z-10 overflow-hidden">
         {/* Decorative background glows */}
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-8">
             <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
               The Journey of Quality
             </span>
@@ -776,13 +815,13 @@ export default function Home() {
           </div>
 
           {/* Step Selector Tabs (Desktop/Tablet) */}
-          <div className="hidden md:flex justify-between items-center max-w-5xl mx-auto mb-12 border-b border-white/10 pb-4">
+          <div className="hidden md:flex justify-between items-center max-w-5xl mx-auto mb-8 border-b border-white/10 pb-4">
             {craftingSteps.map((item, idx) => {
               const isActive = idx === activeStep;
               return (
                 <button
                   key={idx}
-                  onClick={() => setActiveStep(idx)}
+                  onClick={() => handleStepSelect(idx)}
                   className="flex items-center gap-3 pb-4 relative group cursor-pointer transition-all duration-300"
                 >
                   <span className={`font-display text-lg font-bold transition-colors ${
@@ -805,13 +844,13 @@ export default function Home() {
           </div>
 
           {/* Mobile Step Selector (Scrollable horizontally) */}
-          <div className="flex md:hidden gap-6 overflow-x-auto scrollbar-none pb-4 mb-8 border-b border-white/5 snap-x snap-mandatory">
+          <div className="flex md:hidden gap-6 overflow-x-auto scrollbar-none pb-4 mb-6 border-b border-white/5 snap-x snap-mandatory">
             {craftingSteps.map((item, idx) => {
               const isActive = idx === activeStep;
               return (
                 <button
                   key={idx}
-                  onClick={() => setActiveStep(idx)}
+                  onClick={() => handleStepSelect(idx)}
                   className="flex items-center gap-2 pb-2 shrink-0 snap-center relative cursor-pointer"
                 >
                   <span className={`font-display text-sm font-bold ${
@@ -835,10 +874,11 @@ export default function Home() {
           {/* Stacked Slider Viewport with translating track */}
           <div className="relative w-full overflow-hidden max-w-2xl mx-auto px-4 mt-8">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${activeStep * 100}%)` }}
+              className={`flex ${transitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {craftingSteps.map((item, idx) => (
+              {clonedCraftingSteps.map((item, idx) => (
                 <div
                   key={idx}
                   className="w-full shrink-0 flex flex-col px-2"
@@ -881,33 +921,13 @@ export default function Home() {
           </div>
 
           {/* Bottom Controls Bar */}
-          <div className="flex flex-col items-center justify-center gap-6 mt-12 border-t border-white/5 pt-8">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={prevStep}
-                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center cursor-pointer hover:scale-105"
-                aria-label="Previous step"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <span className="text-xs text-white/80 font-medium tracking-wider">
-                {activeStep + 1} / {craftingSteps.length}
-              </span>
-              <button
-                onClick={nextStep}
-                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 text-white hover:text-luxury-gold hover:border-luxury-gold/50 transition-all flex items-center justify-center cursor-pointer hover:scale-105"
-                aria-label="Next step"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-
+          <div className="flex flex-col items-center justify-center mt-6">
             {/* Dots Indicator */}
             <div className="flex items-center justify-center gap-2">
               {craftingSteps.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveStep(idx)}
+                  onClick={() => handleStepSelect(idx)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     idx === activeStep ? "bg-luxury-gold w-6" : "bg-white/20"
                   }`}
