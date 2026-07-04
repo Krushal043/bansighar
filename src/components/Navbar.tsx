@@ -47,8 +47,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "glassmorphism py-4 shadow-lg shadow-black/20"
-          : "bg-transparent py-6 border-b border-white/5"
+          ? "bg-[#8b8b8b]/70 backdrop-blur-md py-4 shadow-lg shadow-black/5 border-b border-zinc-400/30"
+          : "bg-[#8b8b8b]/45 backdrop-blur-md py-6 border-b border-zinc-400/20"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -66,10 +66,10 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium tracking-wide transition-all duration-300 relative py-1 ${
+                  className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${
                     isActive
                       ? "text-luxury-gold"
-                      : "text-luxury-text/80 hover:text-luxury-gold"
+                      : "text-white/90 hover:text-luxury-gold"
                   }`}
                 >
                   {item.name}
@@ -97,7 +97,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="md:hidden p-2 rounded-lg text-luxury-text hover:text-luxury-gold hover:bg-white/5 transition-all duration-300"
+            className="md:hidden p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
             aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
@@ -107,7 +107,7 @@ export default function Navbar() {
 
       {/* Mobile Full Screen Menu Overlay */}
       <div
-        className={`md:hidden fixed inset-0 z-50 bg-[#0D0D0D]/98 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
+        className={`md:hidden fixed inset-0 z-50 bg-[#8b8b8b]/98 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
           isOpen
             ? "opacity-100 translate-x-0 pointer-events-auto"
             : "opacity-0 translate-x-full pointer-events-none"
@@ -120,7 +120,7 @@ export default function Navbar() {
           </Link>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg text-luxury-text hover:text-luxury-gold hover:bg-white/5 transition-all duration-300"
+            className="p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
             aria-label="Close menu"
           >
             <X className="w-7 h-7" />
@@ -139,7 +139,7 @@ export default function Navbar() {
                 className={`font-display text-3xl font-bold tracking-wide transition-all duration-300 ${
                   isActive
                     ? "text-luxury-gold scale-105"
-                    : "text-white/70 hover:text-luxury-gold hover:scale-105"
+                    : "text-white/80 hover:text-luxury-gold hover:scale-105"
                 }`}
                 style={{ transitionDelay: `${idx * 50}ms` }}
               >
@@ -158,7 +158,7 @@ export default function Navbar() {
           >
             Inquire Now
           </Link>
-          <div className="text-[10px] text-white/30 tracking-widest uppercase">
+          <div className="text-[10px] text-white/60 tracking-widest uppercase">
             Banshighar Enterprise &bull; Est. 2016
           </div>
         </div>

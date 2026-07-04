@@ -79,10 +79,10 @@ function HeroVideo({ src, isActive, onEnded }: HeroVideoProps) {
 
 const heroSlides = [
   { type: "video" as const, src: "/videos/banner.mp4" },
-  { type: "image" as const, src: "/images/hero_furniture.png" },
-  { type: "image" as const, src: "/images/modern_sofa.png" },
+  { type: "image" as const, src: "/images/room.jpeg" },
+  { type: "image" as const, src: "/images/sofa.jpeg" },
   { type: "image" as const, src: "/images/dining_table.png" },
-  { type: "image" as const, src: "/images/luxury_bed.png" },
+  { type: "image" as const, src: "/images/badroom_1.jpeg" },
 ];
 
 export default function Home() {
@@ -90,7 +90,7 @@ export default function Home() {
     {
       name: "Living Room",
       desc: "Plush sofas, custom lounge chairs, and ambient coffee tables.",
-      image: "/images/modern_sofa.png",
+      image: "/images/sofa.jpeg",
       href: "/products?category=Living",
     },
     {
@@ -102,7 +102,7 @@ export default function Home() {
     {
       name: "Master Bedroom",
       desc: "Minimalist oak bedframes and boutique bedside storage.",
-      image: "/images/luxury_bed.png",
+      image: "/images/badroom_1.jpeg",
       href: "/products?category=Bedroom",
     },
     {
@@ -174,7 +174,7 @@ export default function Home() {
       title: "Design & Vision",
       desc: "We collaborate closely to define custom dimensions, layouts, timber species, and luxury hardware.",
       icon: <MessageSquare className="w-5 h-5 text-luxury-gold" />,
-      image: "/images/workspace_desk.png",
+      image: "/images/room.jpeg",
       detail: "Includes 3D conceptual drafts",
     },
     {
@@ -182,7 +182,7 @@ export default function Home() {
       title: "Kiln Seasoning",
       desc: "Logs are cut and kiln-dried to 8-12% moisture content to prevent warping over generations.",
       icon: <Trees className="w-5 h-5 text-luxury-gold" />,
-      image: "/images/craftsmanship.png",
+      image: "/images/bardboard.jpeg",
       detail: "Moisture-tested timber",
     },
     {
@@ -190,7 +190,7 @@ export default function Home() {
       title: "Masterful Joinery",
       desc: "Legacy artisans construct frames using traditional Mortise-and-Tenon joints for structural lifetime.",
       icon: <Hammer className="w-5 h-5 text-luxury-gold" />,
-      image: "/images/dining_table.png",
+      image: "/images/kitchan_2.jpeg",
       detail: "Zero nails framework",
     },
     {
@@ -198,7 +198,7 @@ export default function Home() {
       title: "Multi-coat Polish",
       desc: "Multiple stage hand-sanding followed by high-performance PU finishes and custom natural oils.",
       icon: <Sparkles className="w-5 h-5 text-luxury-gold" />,
-      image: "/images/modern_sofa.png",
+      image: "/images/sofa.jpeg",
       detail: "Matte or high-gloss",
     },
     {
@@ -206,7 +206,7 @@ export default function Home() {
       title: "White-Glove Setup",
       desc: "Rigorous quality check before items are padded, shipped, and custom-leveled on-site.",
       icon: <Truck className="w-5 h-5 text-luxury-gold" />,
-      image: "/images/luxury_bed.png",
+      image: "/images/badroom_2.jpeg",
       detail: "Dedicated install team",
     },
   ];

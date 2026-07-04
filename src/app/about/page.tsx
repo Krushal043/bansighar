@@ -111,8 +111,8 @@ export default function About() {
           {/* Visual block */}
           <div className="lg:col-span-5 relative h-[500px] w-full rounded-2xl overflow-hidden border border-zinc-200/60 shadow-xl">
             <Image
-              src="/images/craftsmanship.png"
-              alt="Banshighar Workshop Artisans"
+              src="/images/room.jpeg"
+              alt="Banshighar Masterpiece Space"
               fill
               className="object-cover"
             />
