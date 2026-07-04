@@ -15,7 +15,9 @@ export default function Footer() {
               <Logo />
             </Link>
             <p className="leading-relaxed text-luxury-muted max-w-xs">
-              Bansighar Enterprise specializes in creating premium aluminum themes, partitions, and handcrafted furniture to elevate modern spaces.
+              Banshighar Enterprise specializes in creating premium aluminum
+              themes, partitions, and handcrafted furniture to elevate modern
+              spaces.
             </p>
             <div className="flex items-center gap-4 mt-2">
               <a
@@ -82,7 +84,8 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-luxury-gold shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  Swarg Residency, Opp. Raj Palace, Beside Arjun Nagar, Kargil Chowk, Punagam Road, Surat, Gujarat, India
+                  Swarg Residency, Opp. Raj Palace, Beside Arjun Nagar, Kargil
+                  Chowk, Punagam Road, Surat, Gujarat, India
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -114,9 +117,13 @@ export default function Footer() {
               Stay Inspired
             </h3>
             <p className="leading-relaxed mb-4">
-              Subscribe to receive updates on new collections, private sales, and design tips.
+              Subscribe to receive updates on new collections, private sales,
+              and design tips.
             </p>
-            <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex flex-col gap-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div className="relative">
                 <input
                   type="email"
@@ -143,7 +150,8 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-luxury-muted mb-4 md:mb-0">
-            © {new Date().getFullYear()} Bansighar Enterprise. All Rights Reserved.
+            © {new Date().getFullYear()} Banshighar Enterprise. All Rights
+            Reserved.
           </p>
           <div className="flex items-center gap-6 text-xs">
             <a href="#" className="hover:text-luxury-gold transition-colors">

@@ -18,9 +18,21 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Bansighar Enterprise | Premium Handcrafted Luxury Solutions",
-  description: "Experience premium, handcrafted solid wood furniture and custom aluminium solutions designed for modern spaces by Bansighar Enterprise.",
-  keywords: ["furniture", "luxury furniture", "handcrafted wood furniture", "bespoke furniture", "Bansighar", "Bansighar Enterprise", "custom furniture Gujarat", "solid wood", "modern dining table", "luxury sofa"],
+  title: "Banshighar Enterprise | Premium Handcrafted Luxury Solutions",
+  description:
+    "Experience premium, handcrafted solid wood furniture and custom aluminium solutions designed for modern spaces by Banshighar Enterprise.",
+  keywords: [
+    "furniture",
+    "luxury furniture",
+    "handcrafted wood furniture",
+    "bespoke furniture",
+    "Banshighar",
+    "Banshighar Enterprise",
+    "custom furniture Gujarat",
+    "solid wood",
+    "modern dining table",
+    "luxury sofa",
+  ],
 };
 
 export default function RootLayout({

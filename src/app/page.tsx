@@ -124,7 +124,10 @@ export default function Home() {
     { name: "False Ceiling", icon: <FaBorderAll className="w-8 h-8" /> },
     { name: "Color Work", icon: <FaPaintRoller className="w-8 h-8" /> },
     { name: "Electrical Work", icon: <FaBolt className="w-8 h-8" /> },
-    { name: "Section Window Work", icon: <FaWindowMaximize className="w-8 h-8" /> },
+    {
+      name: "Section Window Work",
+      icon: <FaWindowMaximize className="w-8 h-8" />,
+    },
     { name: "Door Work", icon: <FaDoorOpen className="w-8 h-8" /> },
     { name: "Sofa & Padda Work", icon: <FaCouch className="w-8 h-8" /> },
     { name: "Plumber Work", icon: <FaFaucet className="w-8 h-8" /> },
@@ -135,7 +138,10 @@ export default function Home() {
     { name: "All Glass Work", icon: <FaGem className="w-8 h-8" /> },
     { name: "ACP Elevation", icon: <FaBuilding className="w-8 h-8" /> },
     { name: "Aluminium Themes", icon: <FaHammer className="w-8 h-8" /> },
-    { name: "Premium Door Solutions", icon: <FaDoorOpen className="w-8 h-8" /> },
+    {
+      name: "Premium Door Solutions",
+      icon: <FaDoorOpen className="w-8 h-8" />,
+    },
   ];
 
   const brandPillars = [
@@ -214,7 +220,7 @@ export default function Home() {
   const testimonials = [
     {
       quote:
-        "Bansighar Enterprise transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
+        "Banshighar Enterprise transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
       author: "Vikram Malhotra",
       role: "Interior Designer, Mumbai",
     },
@@ -237,29 +243,33 @@ export default function Home() {
   const [pillarTransitionEnabled, setPillarTransitionEnabled] = useState(true);
 
   // Derived activePillar (0 to 2)
-  const activePillar = currentPillarIndex === 0
-    ? brandPillars.length - 1
-    : currentPillarIndex === brandPillars.length + 1
-      ? 0
-      : currentPillarIndex - 1;
+  const activePillar =
+    currentPillarIndex === 0
+      ? brandPillars.length - 1
+      : currentPillarIndex === brandPillars.length + 1
+        ? 0
+        : currentPillarIndex - 1;
   const [currentIndex, setCurrentIndex] = useState(1);
   const [transitionEnabled, setTransitionEnabled] = useState(true);
 
   // Derived activeStep (0 to 4) for tabs, dots, etc.
-  const activeStep = currentIndex === 0
-    ? craftingSteps.length - 1
-    : currentIndex === craftingSteps.length + 1
-      ? 0
-      : currentIndex - 1;
+  const activeStep =
+    currentIndex === 0
+      ? craftingSteps.length - 1
+      : currentIndex === craftingSteps.length + 1
+        ? 0
+        : currentIndex - 1;
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(1);
-  const [categoryTransitionEnabled, setCategoryTransitionEnabled] = useState(true);
+  const [categoryTransitionEnabled, setCategoryTransitionEnabled] =
+    useState(true);
 
   // Derived activeCategory (0 to 3)
-  const activeCategory = currentCategoryIndex === 0
-    ? categories.length - 1
-    : currentCategoryIndex === categories.length + 1
-      ? 0
-      : currentCategoryIndex - 1;
+  const activeCategory =
+    currentCategoryIndex === 0
+      ? categories.length - 1
+      : currentCategoryIndex === categories.length + 1
+        ? 0
+        : currentCategoryIndex - 1;
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -293,7 +303,9 @@ export default function Home() {
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length,
+    );
   };
 
   useEffect(() => {
@@ -460,7 +472,9 @@ export default function Home() {
               <div
                 key={idx}
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  isActive
+                    ? "opacity-100 z-10"
+                    : "opacity-0 z-0 pointer-events-none"
                 }`}
               >
                 {slide.type === "video" ? (
@@ -498,8 +512,8 @@ export default function Home() {
               <span className="gold-gradient-text">Timeless Luxury</span>
             </h1>
             <p className="text-luxury-muted text-base sm:text-lg max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              At Bansighar Enterprise, we bring nature&apos;s raw beauty into your
-              living space. Exquisitely handcrafted solid wood furniture,
+              At Banshighar Enterprise, we bring nature&apos;s raw beauty into
+              your living space. Exquisitely handcrafted solid wood furniture,
               bespoke designs, and premium comfort customized to absolute
               perfection.
             </p>
@@ -634,7 +648,9 @@ export default function Home() {
           <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
             <div
               className={`flex ${categoryTransitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
-              style={{ transform: `translateX(-${currentCategoryIndex * 100}%)` }}
+              style={{
+                transform: `translateX(-${currentCategoryIndex * 100}%)`,
+              }}
               onTransitionEnd={handleCategoryTransitionEnd}
             >
               {clonedCategories.map((cat, idx) => (
@@ -684,7 +700,9 @@ export default function Home() {
                   key={idx}
                   onClick={() => handleCategorySelect(idx)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    idx === activeCategory ? "bg-luxury-gold w-6" : "bg-white/30"
+                    idx === activeCategory
+                      ? "bg-luxury-gold w-6"
+                      : "bg-white/30"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -761,17 +779,16 @@ export default function Home() {
               Crafting Character, Shaping Logs
             </h2>
             <p className="text-luxury-muted leading-relaxed max-w-2xl mx-auto text-sm sm:text-base">
-              At Bansighar Enterprise, we believe that every piece of wood
-              tells a story. For over a decade, we have been salvaging raw
-              logs and turning them into masterpieces that carry warmth,
-              structural integrity, and artistic prestige.
+              At Banshighar Enterprise, we believe that every piece of wood
+              tells a story. For over a decade, we have been salvaging raw logs
+              and turning them into masterpieces that carry warmth, structural
+              integrity, and artistic prestige.
             </p>
             <p className="text-luxury-muted leading-relaxed max-w-2xl mx-auto text-sm sm:text-base">
-              We reject low-quality veneers and particle boards. Our
-              collections are crafted entirely from premium grade timber,
-              designed, dried, and assembled using traditional
-              mortise-and-tenon joints combined with state-of-the-art
-              precision machinery.
+              We reject low-quality veneers and particle boards. Our collections
+              are crafted entirely from premium grade timber, designed, dried,
+              and assembled using traditional mortise-and-tenon joints combined
+              with state-of-the-art precision machinery.
             </p>
             <div className="grid grid-cols-2 gap-12 mt-6 border-t border-white/5 pt-8 w-full max-w-lg mx-auto">
               <div>
@@ -810,7 +827,8 @@ export default function Home() {
             </h2>
             <p className="text-luxury-muted mt-4 text-sm sm:text-base leading-relaxed">
               From raw logs to bespoke masterpieces installed in your home,
-              discover the meticulous step-by-step path of precision woodworking.
+              discover the meticulous step-by-step path of precision
+              woodworking.
             </p>
           </div>
 
@@ -824,14 +842,22 @@ export default function Home() {
                   onClick={() => handleStepSelect(idx)}
                   className="flex items-center gap-3 pb-4 relative group cursor-pointer transition-all duration-300"
                 >
-                  <span className={`font-display text-lg font-bold transition-colors ${
-                    isActive ? "text-luxury-gold" : "text-white/40 group-hover:text-white"
-                  }`}>
+                  <span
+                    className={`font-display text-lg font-bold transition-colors ${
+                      isActive
+                        ? "text-luxury-gold"
+                        : "text-white/40 group-hover:text-white"
+                    }`}
+                  >
                     {item.step}
                   </span>
-                  <span className={`text-sm font-semibold transition-colors ${
-                    isActive ? "text-white" : "text-white/40 group-hover:text-white"
-                  }`}>
+                  <span
+                    className={`text-sm font-semibold transition-colors ${
+                      isActive
+                        ? "text-white"
+                        : "text-white/40 group-hover:text-white"
+                    }`}
+                  >
                     {item.title}
                   </span>
                   {/* Active bottom line indicator */}
@@ -853,14 +879,18 @@ export default function Home() {
                   onClick={() => handleStepSelect(idx)}
                   className="flex items-center gap-2 pb-2 shrink-0 snap-center relative cursor-pointer"
                 >
-                  <span className={`font-display text-sm font-bold ${
-                    isActive ? "text-luxury-gold" : "text-white/40"
-                  }`}>
+                  <span
+                    className={`font-display text-sm font-bold ${
+                      isActive ? "text-luxury-gold" : "text-white/40"
+                    }`}
+                  >
                     {item.step}
                   </span>
-                  <span className={`text-xs font-semibold ${
-                    isActive ? "text-white" : "text-white/40"
-                  }`}>
+                  <span
+                    className={`text-xs font-semibold ${
+                      isActive ? "text-white" : "text-white/40"
+                    }`}
+                  >
                     {item.title}
                   </span>
                   {isActive && (
@@ -879,10 +909,7 @@ export default function Home() {
               onTransitionEnd={handleTransitionEnd}
             >
               {clonedCraftingSteps.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="w-full shrink-0 flex flex-col px-2"
-                >
+                <div key={idx} className="w-full shrink-0 flex flex-col px-2">
                   {/* 1. Image Container with overlaid Step Number & Detail Badge */}
                   <div className="relative w-full h-[280px] sm:h-[400px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-luxury-black glow-gold-hover">
                     <Image
@@ -1014,9 +1041,7 @@ export default function Home() {
                     <h4 className="text-luxury-gold font-bold text-base">
                       {test.author}
                     </h4>
-                    <p className="text-xs text-zinc-500 mt-0.5">
-                      {test.role}
-                    </p>
+                    <p className="text-xs text-zinc-500 mt-0.5">{test.role}</p>
                   </div>
                 </div>
               ))}
@@ -1069,7 +1094,9 @@ export default function Home() {
                   key={idx}
                   onClick={() => setActiveTestimonial(idx)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    idx === activeTestimonial ? "bg-luxury-gold w-6" : "bg-zinc-300"
+                    idx === activeTestimonial
+                      ? "bg-luxury-gold w-6"
+                      : "bg-zinc-300"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />

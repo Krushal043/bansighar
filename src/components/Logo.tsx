@@ -10,7 +10,7 @@ export function Logo({ className = "h-16 w-auto" }: LogoProps) {
     <div className="flex items-center group py-0.5">
       <Image
         src="/images/logo.png"
-        alt="Bansighar Enterprise Logo"
+        alt="Banshighar Enterprise Logo"
         width={183}
         height={100}
         className={`${className} object-contain transition-transform duration-500 group-hover:scale-105`}

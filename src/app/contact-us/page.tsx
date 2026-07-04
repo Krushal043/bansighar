@@ -47,7 +47,7 @@ function ContactFormContent() {
     initialDynamicOptions = [initialSubjectText];
   } else if (initialService) {
     const matched = standardOptions.find(
-      (opt) => opt.toLowerCase() === initialService.toLowerCase()
+      (opt) => opt.toLowerCase() === initialService.toLowerCase(),
     );
     if (matched) {
       initialSubjectText = matched;
@@ -70,7 +70,9 @@ function ContactFormContent() {
   const [dynamicOptions] = useState<string[]>(initialDynamicOptions);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -102,13 +104,15 @@ function ContactFormContent() {
       <div className="lg:col-span-5 flex flex-col gap-8 animate-fade-in-left">
         <div>
           <span className="text-xs uppercase tracking-widest text-luxury-gold font-semibold">
-            Bansighar Enterprise
+            Banshighar Enterprise
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-luxury-black mt-2 mb-4">
             Connect With Our team
           </h2>
           <p className="text-zinc-650 text-sm leading-relaxed">
-            Have custom requirements, timber or metal work questions, or want to schedule an in-person visit to our Surat showroom & workshop? Get in touch today.
+            Have custom requirements, timber or metal work questions, or want to
+            schedule an in-person visit to our Surat showroom & workshop? Get in
+            touch today.
           </p>
         </div>
 
@@ -131,8 +135,10 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
-                Swarg Residency, Opposite Raj Palace,<br />
-                Beside Arjun Nagar, Kargil Chowk - Punagam Road,<br />
+                Swarg Residency, Opposite Raj Palace,
+                <br />
+                Beside Arjun Nagar, Kargil Chowk - Punagam Road,
+                <br />
                 Surat, Gujarat, India - 395010
               </p>
             </div>
@@ -145,7 +151,7 @@ function ContactFormContent() {
               <h4 className="text-sm font-bold text-luxury-black flex justify-between items-center">
                 WhatsApp Chat Desk
                 <a
-                  href="https://wa.me/918866682122?text=Hi%20Bansighar%20Enterprise,%20I%20am%20interested%20in%20inquiring%20about%20your%20services."
+                  href="https://wa.me/918866682122?text=Hi%20Banshighar%20Enterprise,%20I%20am%20interested%20in%20inquiring%20about%20your%20services."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[10px] text-emerald-600 hover:text-emerald-500 font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
@@ -155,7 +161,9 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
-                Connect directly on WhatsApp with Jitendrabhai for instant catalog previews and custom estimates.<br />
+                Connect directly on WhatsApp with Jitendrabhai for instant
+                catalog previews and custom estimates.
+                <br />
                 WhatsApp: +91 88666 82122 / 88666 81665
               </p>
             </div>
@@ -176,7 +184,8 @@ function ContactFormContent() {
                 </a>
               </h4>
               <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
-                Jitendrabhai: +91 88666 82122<br />
+                Jitendrabhai: +91 88666 82122
+                <br />
                 Office Inquiries: +91 88666 81665
               </p>
             </div>
@@ -212,7 +221,10 @@ function ContactFormContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <label
+                htmlFor="name"
+                className="text-xs font-semibold text-zinc-500 uppercase tracking-wider"
+              >
                 Full Name
               </label>
               <input
@@ -228,7 +240,10 @@ function ContactFormContent() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <label
+                htmlFor="email"
+                className="text-xs font-semibold text-zinc-500 uppercase tracking-wider"
+              >
                 Email Address
               </label>
               <input
@@ -246,7 +261,10 @@ function ContactFormContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
-              <label htmlFor="phone" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <label
+                htmlFor="phone"
+                className="text-xs font-semibold text-zinc-500 uppercase tracking-wider"
+              >
                 Contact Number
               </label>
               <input
@@ -261,7 +279,10 @@ function ContactFormContent() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="subject" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+              <label
+                htmlFor="subject"
+                className="text-xs font-semibold text-zinc-500 uppercase tracking-wider"
+              >
                 Inquiry Topic
               </label>
               <select
@@ -272,56 +293,142 @@ function ContactFormContent() {
                 onChange={handleChange}
                 className="w-full bg-white border border-zinc-200 rounded-lg px-4 py-3 text-xs text-zinc-800 focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-luxury-gold transition-all"
               >
-                <option value="" disabled className="text-zinc-400">Select an Option...</option>
+                <option value="" disabled className="text-zinc-400">
+                  Select an Option...
+                </option>
                 {/* Dynamic Options */}
                 {dynamicOptions.map((opt) => (
-                  <option key={opt} value={opt} className="text-zinc-800 font-semibold">
+                  <option
+                    key={opt}
+                    value={opt}
+                    className="text-zinc-800 font-semibold"
+                  >
                     {opt}
                   </option>
                 ))}
-                
-                <option disabled className="text-luxury-gold text-xs font-semibold">
+
+                <option
+                  disabled
+                  className="text-luxury-gold text-xs font-semibold"
+                >
                   --- FURNITURE COLLECTIONS ---
                 </option>
-                <option value="Bespoke Commissions" className="text-zinc-800">Bespoke Commissions (Solid Wood)</option>
-                <option value="Space Layout Consultations" className="text-zinc-800">Space Layout Consultations</option>
-                <option value="Teak & Walnut Restoration" className="text-zinc-800">Teak & Walnut Restoration</option>
-                <option value="White-Glove Delivery" className="text-zinc-800">White-Glove Delivery</option>
-                
-                <option disabled className="text-luxury-gold text-xs font-semibold">
+                <option value="Bespoke Commissions" className="text-zinc-800">
+                  Bespoke Commissions (Solid Wood)
+                </option>
+                <option
+                  value="Space Layout Consultations"
+                  className="text-zinc-800"
+                >
+                  Space Layout Consultations
+                </option>
+                <option
+                  value="Teak & Walnut Restoration"
+                  className="text-zinc-800"
+                >
+                  Teak & Walnut Restoration
+                </option>
+                <option value="White-Glove Delivery" className="text-zinc-800">
+                  White-Glove Delivery
+                </option>
+
+                <option
+                  disabled
+                  className="text-luxury-gold text-xs font-semibold"
+                >
                   --- TURNKEY CONTRACTING SERVICES ---
                 </option>
-                <option value="Stone Work" className="text-zinc-800">Stone Work</option>
-                <option value="Ceiling & 2x2 Folding Ceiling" className="text-zinc-800">Ceiling & 2x2 Folding Ceiling</option>
-                <option value="Electric Work" className="text-zinc-800">Electric Work</option>
-                <option value="Plumber Work" className="text-zinc-800">Plumber Work</option>
-                <option value="AC Work" className="text-zinc-800">AC Work</option>
-                <option value="Core Cutting" className="text-zinc-800">Core Cutting</option>
-                <option value="PVC & Wooden Furniture" className="text-zinc-800">PVC & Wooden Furniture</option>
-                <option value="Color Work" className="text-zinc-800">Color Work</option>
-                <option value="Aluminium Window" className="text-zinc-800">Aluminium Window</option>
-                <option value="Office Partition" className="text-zinc-800">Office Partition</option>
-                <option value="Shower Glass" className="text-zinc-800">Shower Glass</option>
-                <option value="All Glass Work" className="text-zinc-800">All Glass Work</option>
-                <option value="ACP Elevation" className="text-zinc-800">ACP Elevation</option>
-                <option value="Aluminium Themes" className="text-zinc-800">Aluminium Themes</option>
-                <option value="Premium Door Solutions" className="text-zinc-800">Premium Door Solutions (Lamination/Sunmica/ACP/PVC/FRP)</option>
-                <option value="Lamination Door" className="text-zinc-800">Lamination Door</option>
-                <option value="Sunmica Door" className="text-zinc-800">Sunmica Door</option>
-                <option value="ACP Door" className="text-zinc-800">ACP Door</option>
-                <option value="PVC Door" className="text-zinc-800">PVC Door</option>
-                <option value="FRP Door" className="text-zinc-800">FRP Door</option>
-                
-                <option disabled className="text-luxury-gold text-xs font-semibold">
+                <option value="Stone Work" className="text-zinc-800">
+                  Stone Work
+                </option>
+                <option
+                  value="Ceiling & 2x2 Folding Ceiling"
+                  className="text-zinc-800"
+                >
+                  Ceiling & 2x2 Folding Ceiling
+                </option>
+                <option value="Electric Work" className="text-zinc-800">
+                  Electric Work
+                </option>
+                <option value="Plumber Work" className="text-zinc-800">
+                  Plumber Work
+                </option>
+                <option value="AC Work" className="text-zinc-800">
+                  AC Work
+                </option>
+                <option value="Core Cutting" className="text-zinc-800">
+                  Core Cutting
+                </option>
+                <option
+                  value="PVC & Wooden Furniture"
+                  className="text-zinc-800"
+                >
+                  PVC & Wooden Furniture
+                </option>
+                <option value="Color Work" className="text-zinc-800">
+                  Color Work
+                </option>
+                <option value="Aluminium Window" className="text-zinc-800">
+                  Aluminium Window
+                </option>
+                <option value="Office Partition" className="text-zinc-800">
+                  Office Partition
+                </option>
+                <option value="Shower Glass" className="text-zinc-800">
+                  Shower Glass
+                </option>
+                <option value="All Glass Work" className="text-zinc-800">
+                  All Glass Work
+                </option>
+                <option value="ACP Elevation" className="text-zinc-800">
+                  ACP Elevation
+                </option>
+                <option value="Aluminium Themes" className="text-zinc-800">
+                  Aluminium Themes
+                </option>
+                <option
+                  value="Premium Door Solutions"
+                  className="text-zinc-800"
+                >
+                  Premium Door Solutions (Lamination/Sunmica/ACP/PVC/FRP)
+                </option>
+                <option value="Lamination Door" className="text-zinc-800">
+                  Lamination Door
+                </option>
+                <option value="Sunmica Door" className="text-zinc-800">
+                  Sunmica Door
+                </option>
+                <option value="ACP Door" className="text-zinc-800">
+                  ACP Door
+                </option>
+                <option value="PVC Door" className="text-zinc-800">
+                  PVC Door
+                </option>
+                <option value="FRP Door" className="text-zinc-800">
+                  FRP Door
+                </option>
+
+                <option
+                  disabled
+                  className="text-luxury-gold text-xs font-semibold"
+                >
                   --- GENERAL ---
                 </option>
-                <option value="Other / General Inquiry" className="text-zinc-800">Other / General Inquiry</option>
+                <option
+                  value="Other / General Inquiry"
+                  className="text-zinc-800"
+                >
+                  Other / General Inquiry
+                </option>
               </select>
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="message" className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+            <label
+              htmlFor="message"
+              className="text-xs font-semibold text-zinc-500 uppercase tracking-wider"
+            >
               Project Brief / Detailed Idea
             </label>
             <textarea
@@ -338,7 +445,10 @@ function ContactFormContent() {
 
           <div className="flex items-center gap-2.5 text-xs text-zinc-500 bg-zinc-50 border border-zinc-250 rounded-lg p-3">
             <ShieldCheck className="w-4 h-4 text-luxury-gold shrink-0" />
-            <span>Authenticated Indian Teak Certificate is attached to all custom commissions.</span>
+            <span>
+              Authenticated Indian Teak Certificate is attached to all custom
+              commissions.
+            </span>
           </div>
 
           <button
@@ -367,7 +477,9 @@ function ContactFormContent() {
             <div className="flex items-center gap-2.5 p-4 bg-emerald-50 border border-emerald-250 text-emerald-700 text-xs rounded-xl animate-fade-in-up">
               <CheckCircle className="w-4 h-4 text-emerald-700 shrink-0" />
               <span>
-                Thank you! Your specification blueprint was transmitted successfully. A design consultant will contact you via email or phone within 24 hours.
+                Thank you! Your specification blueprint was transmitted
+                successfully. A design consultant will contact you via email or
+                phone within 24 hours.
               </span>
             </div>
           )}
@@ -387,10 +499,12 @@ export default function Contact() {
             Get In Touch
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white max-w-3xl leading-tight">
-            Consult With Our <span className="gold-gradient-text">Artisans</span>
+            Consult With Our{" "}
+            <span className="gold-gradient-text">Artisans</span>
           </h1>
           <p className="text-luxury-muted max-w-xl text-sm leading-relaxed mt-2">
-            Schedule warehouse log selections, request price calculations, or review structural plans.
+            Schedule warehouse log selections, request price calculations, or
+            review structural plans.
           </p>
         </div>
       </section>

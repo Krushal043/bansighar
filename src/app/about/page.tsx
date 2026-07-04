@@ -1,10 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TreePine, Hammer, HeartHandshake, Award, ArrowUpRight } from "lucide-react";
+import {
+  TreePine,
+  Hammer,
+  HeartHandshake,
+  Award,
+  ArrowUpRight,
+} from "lucide-react";
 
 export const metadata = {
-  title: "About Us | Bansighar Enterprise",
-  description: "Learn about the heritage, craftsmanship, and commitment to quality behind Bansighar Enterprise, custom furniture and aluminium designers.",
+  title: "About Us | Banshighar Enterprise",
+  description:
+    "Learn about the heritage, craftsmanship, and commitment to quality behind Banshighar Enterprise, custom furniture and aluminium designers.",
 };
 
 export default function About() {
@@ -58,10 +65,12 @@ export default function About() {
             Our Heritage
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white max-w-3xl leading-tight">
-            The Story Behind <span className="gold-gradient-text">Bansighar Enterprise</span>
+            The Story Behind{" "}
+            <span className="gold-gradient-text">Banshighar Enterprise</span>
           </h1>
           <p className="text-luxury-muted max-w-xl text-sm sm:text-base leading-relaxed mt-2">
-            Bridging age-old handcrafted legacy with refined contemporary aesthetics since 2015.
+            Bridging age-old handcrafted legacy with refined contemporary
+            aesthetics since 2015.
           </p>
         </div>
       </section>
@@ -75,16 +84,27 @@ export default function About() {
               Sourcing Premium Materials, Honoring Pure Hands
             </h2>
             <p className="text-zinc-600 leading-relaxed">
-              Bansighar Enterprise was born out of a desire to rescue authentic craftsmanship from the rush of mass-manufactured, short-lived designs. In an era dominated by flat-pack boards and generic themes, we set out to construct items that increase in value, character, and beauty as they age.
+              Banshighar Enterprise was born out of a desire to rescue authentic
+              craftsmanship from the rush of mass-manufactured, short-lived
+              designs. In an era dominated by flat-pack boards and generic
+              themes, we set out to construct items that increase in value,
+              character, and beauty as they age.
             </p>
             <p className="text-zinc-600 leading-relaxed">
-              Our workshop operates on three core principles: selecting mature log varieties, giving artisans the time required to details every bevel, and finishing each piece with organic oils and waxes that let the natural wood grain breathe.
+              Our workshop operates on three core principles: selecting mature
+              log varieties, giving artisans the time required to details every
+              bevel, and finishing each piece with organic oils and waxes that
+              let the natural wood grain breathe.
             </p>
             <blockquote className="border-l-2 border-luxury-gold pl-6 py-2 my-2 italic text-zinc-800 font-display text-lg">
-              &ldquo;We do not build items to fill a showroom. We craft heritage assets that hold families together around dining tables, study desks, and comfortable bedrooms.&rdquo;
+              &ldquo;We do not build items to fill a showroom. We craft heritage
+              assets that hold families together around dining tables, study
+              desks, and comfortable bedrooms.&rdquo;
             </blockquote>
             <p className="text-zinc-600 leading-relaxed">
-              Today, Bansighar Enterprise represents a community of master carpenters, metal fabricators, and designers who share one singular focus: absolute craftsmanship excellence.
+              Today, Banshighar Enterprise represents a community of master
+              carpenters, metal fabricators, and designers who share one
+              singular focus: absolute craftsmanship excellence.
             </p>
           </div>
 
@@ -92,7 +112,7 @@ export default function About() {
           <div className="lg:col-span-5 relative h-[500px] w-full rounded-2xl overflow-hidden border border-zinc-200/60 shadow-xl">
             <Image
               src="/images/craftsmanship.png"
-              alt="Bansighar Workshop Artisans"
+              alt="Banshighar Workshop Artisans"
               fill
               className="object-cover"
             />
@@ -102,8 +122,12 @@ export default function About() {
                 <Award className="w-6 h-6 text-luxury-gold" />
               </div>
               <div>
-                <h4 className="font-bold text-white text-sm">Certified Master Carpentry</h4>
-                <p className="text-[11px] text-luxury-muted">A decade of specialized luxury commissions</p>
+                <h4 className="font-bold text-white text-sm">
+                  Certified Master Carpentry
+                </h4>
+                <p className="text-[11px] text-luxury-muted">
+                  A decade of specialized luxury commissions
+                </p>
               </div>
             </div>
           </div>
@@ -132,8 +156,12 @@ export default function About() {
                   {val.icon}
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">{val.title}</h3>
-                  <p className="text-sm text-luxury-muted leading-relaxed">{val.desc}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">
+                    {val.title}
+                  </h3>
+                  <p className="text-sm text-luxury-muted leading-relaxed">
+                    {val.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -185,7 +213,8 @@ export default function About() {
             Appreciate Master Woodworking In Person?
           </h2>
           <p className="text-luxury-muted max-w-lg text-sm sm:text-base leading-relaxed">
-            Visit our workshop experience center in Gujarat, select raw planks directly, and watch our carpenters shape your bespoke layout.
+            Visit our workshop experience center in Gujarat, select raw planks
+            directly, and watch our carpenters shape your bespoke layout.
           </p>
           <Link
             href="/contact-us"

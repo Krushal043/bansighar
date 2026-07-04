@@ -159,7 +159,7 @@ export default function Navbar() {
             Inquire Now
           </Link>
           <div className="text-[10px] text-white/30 tracking-widest uppercase">
-            Bansighar Enterprise &bull; Est. 2016
+            Banshighar Enterprise &bull; Est. 2016
           </div>
         </div>
       </div>
