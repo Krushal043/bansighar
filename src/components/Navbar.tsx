@@ -44,70 +44,72 @@ export default function Navbar() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-[#8b8b8b]/70 backdrop-blur-md py-4 shadow-lg shadow-black/5 border-b border-zinc-400/30"
-          : "bg-[#8b8b8b]/45 backdrop-blur-md py-6 border-b border-zinc-400/20"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/">
-            <Logo />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${
-                    isActive
-                      ? "text-luxury-gold"
-                      : "text-white/90 hover:text-luxury-gold"
-                  }`}
-                >
-                  {item.name}
-                  <span
-                    className={`absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold transition-transform duration-300 origin-left ${
-                      isActive ? "scale-x-100" : "scale-x-0 hover:scale-x-100"
-                    }`}
-                  />
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Call to Action Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="/contact-us"
-              className="gold-gradient-bg text-luxury-black font-semibold text-xs tracking-wider uppercase px-5 py-2.5 rounded-full flex items-center gap-1.5 hover:scale-105 hover:shadow-lg hover:shadow-luxury-gold/20 active:scale-95 transition-all duration-300"
-            >
-              Inquire Now
-              <ArrowUpRight className="w-3.5 h-3.5" />
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "bg-black/45 backdrop-blur-md py-2 shadow-lg shadow-black/5 border-b border-zinc-400/30"
+            : "bg-black/45 backdrop-blur-md py-3 border-b border-zinc-400/20"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/">
+              <Logo />
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(true)}
-            className="md:hidden p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-8">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${
+                      isActive
+                        ? "text-luxury-gold"
+                        : "text-white/90 hover:text-luxury-gold"
+                    }`}
+                  >
+                    {item.name}
+                    <span
+                      className={`absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold transition-transform duration-300 origin-left ${
+                        isActive ? "scale-x-100" : "scale-x-0 hover:scale-x-100"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Call to Action Button */}
+            <div className="hidden md:flex items-center gap-4">
+              <Link
+                href="/contact-us"
+                className="gold-gradient-bg text-luxury-black font-semibold text-xs tracking-wider uppercase px-5 py-2.5 rounded-full flex items-center gap-1.5 hover:scale-105 hover:shadow-lg hover:shadow-luxury-gold/20 active:scale-95 transition-all duration-300"
+              >
+                Inquire Now
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(true)}
+              className="md:hidden p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Full Screen Menu Overlay */}
       <div
-        className={`md:hidden fixed inset-0 z-50 bg-[#8b8b8b]/98 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
+        className={`md:hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
           isOpen
             ? "opacity-100 translate-x-0 pointer-events-auto"
             : "opacity-0 translate-x-full pointer-events-none"
@@ -163,6 +165,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
