@@ -1,59 +1,65 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  Home,
+  Info,
+  Sparkles,
+  Package,
+  Phone,
+} from "lucide-react";
 import { Logo } from "./Logo";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
+
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 80) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent background scrolling when full screen mobile menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Products", href: "/products" },
-    { name: "Contact Us", href: "/contact-us" },
+    { name: "Home", href: "/", icon: Home },
+    { name: "About", href: "/about", icon: Info },
+    { name: "Services", href: "/services", icon: Sparkles },
+    { name: "Products", href: "/products", icon: Package },
+    { name: "Contact Us", href: "/contact-us", icon: Phone },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ${
           isScrolled
             ? "bg-black/45 backdrop-blur-md py-2 shadow-lg shadow-black/5 border-b border-zinc-400/30"
             : "bg-black/45 backdrop-blur-md py-3 border-b border-zinc-400/20"
-        }`}
+        } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center md:justify-between">
             {/* Logo */}
             <Link href="/">
               <Logo />
@@ -94,75 +100,43 @@ export default function Navbar() {
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(true)}
-              className="md:hidden p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Full Screen Menu Overlay */}
+      {/* Mobile Bottom Navigation Tab Bar */}
       <div
-        className={`md:hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
-          isOpen
-            ? "opacity-100 translate-x-0 pointer-events-auto"
-            : "opacity-0 translate-x-full pointer-events-none"
-        }`}
+        className="md:hidden fixed left-4 right-4 bottom-4 z-45 h-16"
+        style={{ marginBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
-        {/* Top bar inside menu */}
-        <div className="flex items-center justify-between">
-          <Link href="/" onClick={() => setIsOpen(false)}>
-            <Logo />
-          </Link>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 rounded-lg text-white hover:bg-white/5 transition-all duration-300"
-            aria-label="Close menu"
-          >
-            <X className="w-7 h-7" />
-          </button>
-        </div>
+        {/* Background Layer with Shadow and Border */}
+        <div className="absolute inset-0 bg-[#121212]/95 backdrop-blur-lg border border-zinc-800/60 rounded-2xl shadow-2xl shadow-black/85" />
 
-        {/* Central Navigation Links */}
-        <nav className="flex flex-col gap-8 items-center my-auto">
-          {navItems.map((item, idx) => {
+        {/* Tab Items Container */}
+        <div className="relative z-10 flex justify-around items-center h-full px-2">
+          {navItems.map((item) => {
             const isActive = pathname === item.href;
+            const Icon = item.icon;
+
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`font-display text-3xl font-bold tracking-wide transition-all duration-300 ${
-                  isActive
-                    ? "text-luxury-gold scale-105"
-                    : "text-white/80 hover:text-luxury-gold hover:scale-105"
-                }`}
-                style={{ transitionDelay: `${idx * 50}ms` }}
+                className="relative flex flex-col items-center justify-center p-1"
+                aria-label={item.name}
               >
-                {item.name}
+                <div
+                  className={`w-12 h-12 rounded-full border-[2px] flex items-center justify-center transition-all duration-500 ease-out ${
+                    isActive
+                      ? "border-[#080808] bg-luxury-gold text-luxury-black -translate-y-4 scale-110 shadow-lg shadow-luxury-gold/20"
+                      : "border-transparent bg-transparent text-white/60 hover:text-white translate-y-0 scale-100"
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                </div>
               </Link>
             );
           })}
-        </nav>
-
-        {/* Bottom CTA & Footer Info */}
-        <div className="flex flex-col gap-6 items-center w-full mt-auto">
-          <Link
-            href="/contact-us"
-            onClick={() => setIsOpen(false)}
-            className="w-full max-w-xs gold-gradient-bg text-luxury-black font-semibold text-center text-sm tracking-wider uppercase py-4 rounded-full hover:scale-105 hover:shadow-lg hover:shadow-luxury-gold/20 active:scale-95 transition-all duration-300"
-          >
-            Inquire Now
-          </Link>
-          <div className="text-[10px] text-white/60 tracking-widest uppercase">
-            Banshighar Enterprise &bull; Est. 2016
-          </div>
         </div>
       </div>
     </>
