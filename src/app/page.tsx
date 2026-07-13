@@ -85,6 +85,60 @@ const heroSlides = [
   { type: "image" as const, src: "/images/badroom_1.jpeg" },
 ];
 
+const useSwipe = (onSwipeLeft: () => void, onSwipeRight: () => void) => {
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const touchEndY = useRef<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchEndX.current = e.touches[0].clientX;
+    touchEndY.current = e.touches[0].clientY;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+    touchEndY.current = e.touches[0].clientY;
+  };
+
+  const onTouchEnd = () => {
+    if (
+      touchStartX.current === null ||
+      touchStartY.current === null ||
+      touchEndX.current === null ||
+      touchEndY.current === null
+    ) {
+      return;
+    }
+
+    const diffX = touchStartX.current - touchEndX.current;
+    const diffY = touchStartY.current - touchEndY.current;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0) {
+        onSwipeLeft();
+      } else {
+        onSwipeRight();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+    touchEndX.current = null;
+    touchEndY.current = null;
+  };
+
+  return {
+    onTouchStart,
+    onTouchMove,
+    onTouchEnd,
+  };
+};
+
 export default function Home() {
   const categories = [
     {
@@ -316,7 +370,7 @@ export default function Home() {
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, [testimonials.length]);
+  }, [activeTestimonial, testimonials.length]);
 
   // Auto-advance logic for Brand Pillars
   useEffect(() => {
@@ -327,7 +381,7 @@ export default function Home() {
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, [brandPillars.length]);
+  }, [currentPillarIndex, brandPillars.length]);
 
   // Re-enable transition after quick reset of currentPillarIndex
   useEffect(() => {
@@ -348,7 +402,7 @@ export default function Home() {
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, [craftingSteps.length]);
+  }, [currentIndex, craftingSteps.length]);
 
   // Re-enable transition after quick reset of currentIndex
   useEffect(() => {
@@ -369,7 +423,7 @@ export default function Home() {
     }, 5000);
 
     return () => window.clearInterval(intervalId);
-  }, [categories.length]);
+  }, [currentCategoryIndex, categories.length]);
 
   // Re-enable transition after quick reset of currentCategoryIndex
   useEffect(() => {
@@ -460,10 +514,19 @@ export default function Home() {
     }
   };
 
+  const heroSwipeHandlers = useSwipe(nextSlide, prevSlide);
+  const categorySwipeHandlers = useSwipe(nextCategory, prevCategory);
+  const pillarSwipeHandlers = useSwipe(nextPillar, prevPillar);
+  const stepSwipeHandlers = useSwipe(nextStep, prevStep);
+  const testimonialSwipeHandlers = useSwipe(nextTestimonial, prevTestimonial);
+
   return (
     <div className="relative overflow-hidden">
       {/* 1. Hero Section */}
-      <section className="relative min-h-[95vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
+      <section
+        className="relative min-h-[95vh] flex items-center justify-center pt-24 pb-16 overflow-hidden"
+        {...heroSwipeHandlers}
+      >
         {/* Background Carousel with Crossfade and Overlay */}
         <div className="absolute inset-0 z-0 bg-luxury-black">
           {heroSlides.map((slide, idx) => {
@@ -645,7 +708,10 @@ export default function Home() {
           </div>
 
           {/* Slider Container with Translating Track */}
-          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
+          <div
+            className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden"
+            {...categorySwipeHandlers}
+          >
             <div
               className={`flex ${categoryTransitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
               style={{
@@ -722,7 +788,10 @@ export default function Home() {
             Built on Three Pillars
           </h2>
 
-          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
+          <div
+            className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden"
+            {...pillarSwipeHandlers}
+          >
             <div
               className={`flex ${pillarTransitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
               style={{ transform: `translateX(-${currentPillarIndex * 100}%)` }}
@@ -902,7 +971,10 @@ export default function Home() {
           </div>
 
           {/* Stacked Slider Viewport with translating track */}
-          <div className="relative w-full overflow-hidden max-w-2xl mx-auto px-4 mt-8">
+          <div
+            className="relative w-full overflow-hidden max-w-2xl mx-auto px-4 mt-8"
+            {...stepSwipeHandlers}
+          >
             <div
               className={`flex ${transitionEnabled ? "transition-transform duration-500 ease-in-out" : ""}`}
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -1023,7 +1095,10 @@ export default function Home() {
             Trusted by Connoisseurs
           </h2>
 
-          <div className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden">
+          <div
+            className="relative px-4 sm:px-16 max-w-4xl mx-auto overflow-hidden"
+            {...testimonialSwipeHandlers}
+          >
             <div className="relative min-h-[220px] flex items-center justify-center">
               {testimonials.map((test, idx) => (
                 <div
