@@ -118,7 +118,10 @@ const useSwipe = (onSwipeLeft: () => void, onSwipeRight: () => void) => {
     const diffX = touchStartX.current - touchEndX.current;
     const diffY = touchStartY.current - touchEndY.current;
 
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+    if (
+      Math.abs(diffX) > Math.abs(diffY) &&
+      Math.abs(diffX) > minSwipeDistance
+    ) {
       if (diffX > 0) {
         onSwipeLeft();
       } else {
@@ -274,7 +277,7 @@ export default function Home() {
   const testimonials = [
     {
       quote:
-        "Banshighar Enterprise transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
+        "banshidhar Enterprise transformed our penthouse. The custom walnut dining table is not just furniture; it's a masterpiece that draws compliments from every guest.",
       author: "Vikram Malhotra",
       role: "Interior Designer, Mumbai",
     },
@@ -575,7 +578,7 @@ export default function Home() {
               <span className="gold-gradient-text">Timeless Luxury</span>
             </h1>
             <p className="text-luxury-muted text-base sm:text-lg max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-              At Banshighar Enterprise, we bring nature&apos;s raw beauty into
+              At banshidhar Enterprise, we bring nature&apos;s raw beauty into
               your living space. Exquisitely handcrafted solid wood furniture,
               bespoke designs, and premium comfort customized to absolute
               perfection.
@@ -848,7 +851,7 @@ export default function Home() {
               Crafting Character, Shaping Logs
             </h2>
             <p className="text-luxury-muted leading-relaxed max-w-2xl mx-auto text-sm sm:text-base">
-              At Banshighar Enterprise, we believe that every piece of wood
+              At banshidhar Enterprise, we believe that every piece of wood
               tells a story. For over a decade, we have been salvaging raw logs
               and turning them into masterpieces that carry warmth, structural
               integrity, and artistic prestige.

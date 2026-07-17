@@ -15,7 +15,7 @@ export default function Footer() {
               <Logo />
             </Link>
             <p className="leading-relaxed text-luxury-muted max-w-xs">
-              Banshighar Enterprise specializes in creating premium aluminum
+              Banshidhar Enterprise specializes in creating premium aluminum
               themes, partitions, and handcrafted furniture to elevate modern
               spaces.
             </p>
@@ -150,7 +150,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-luxury-muted mb-4 md:mb-0">
-            © {new Date().getFullYear()} Banshighar Enterprise. All Rights
+            © {new Date().getFullYear()} Banshidhar Enterprise. All Rights
             Reserved.
           </p>
           <div className="flex items-center gap-6 text-xs">
